@@ -1,25 +1,111 @@
 <header ng-include="'js/app/header.html'"></header>
-<main role="main" class="container">
-<div ng-show="mostrar">PLIST</div>
-<h1>El resultado de sumar 1+2 es {{1 + 2}}</h1>
-<h2>contenido de la variable:{{var1}}</h2>
-<h1>PLIST</h1>
-<h2>{{ruta}}</h2>
-<input type="text" ng-model="var2" />
-<h3>{{var2}}</h3>
-<h3>Resultado de la llamada AJAX: {{ajaxData}}</h3>
-<button ng-disabled="activar" ng-click="toggle()">Cambio ver</button>
-<button ng-click="enable()">Cambio activar</button>
-<button ng-click="usuarios()">Mostrar usuarios</button>
-<table>
-    <tr>
-        <th>id</th>
-        <th>descripción</th>
-    </tr>
-    <tr ng-repeat="fila in ajaxDataUsuarios">
-        <td>{{fila.id}}</td>
-        <td>{{fila.login}}</td>
-    </tr>
-</table>
-</main>
+<div class="container-fluid">
+    <div class="row">      
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top: 50px">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Tipos de usuario</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <span data-feather="calendar"></span>
+                        This week
+                    </button>
+                </div>
+            </div>  
+            <div class="container">
+            <div class="row">
+            <div class="col-2 nrpp">   
+            Nº de registros por pagina:
+            </div>   
+            <div class="w-10 col-2">
+            <select class="custom-select" ng-change="vnpp()" ng-model="selectedItem">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="500">500</option>
+            </select>   
+            </div>
+            <div class="col-8">
+            <nav aria-label="paginacion">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page > 1" href="usuario/plist/{{rpp}}/{{page - 1}}">Previous</a>
+                    </li>
+
+
+
+                    <li class="page-item" ng-class="{'active':(p == page)}" ng-repeat="p in list">
+                        <a class="page-link" href="usuario/plist/{{rpp}}/{{p}}">{{p}}</a>
+                    </li>
+
+
+
+                    <li class="page-item">
+                        <a class="page-link" ng-show="page != totalPages" href="usuario/plist/{{rpp}}/{{page--1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            </div>
+            </div>
+            </div>
+
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-sm" >
+                    <tr>
+                        <th>id<button type="button" class="btn btn-light" ng-click="order('id','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('id', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>
+                        <th>dni<button type="button" class="btn btn-light" ng-click="order('dni','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('dni', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>
+                        <th>nombre<button type="button" class="btn btn-light" ng-click="order('nombre','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('nombre', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>
+                        <th>primer apellido<button type="button" class="btn btn-light" ng-click="order('ape1','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('ape1', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>
+                        <th>segundo apellido<button type="button" class="btn btn-light" ng-click="order('ape2','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('ape2', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>
+                        <th>nombre de usuario<button type="button" class="btn btn-light" ng-click="order('login','asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="order('login', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                        </button></th>   
+                    </tr>
+                    <tr ng-repeat="fila in ajaxDataUsuarios">
+                        <td>{{fila.id}}</td>
+                        <td>{{fila.dni}}</td>
+                        <td>{{fila.nombre}}</td>
+                        <td>{{fila.ape1}}</td>
+                        <td>{{fila.ape2}}</td>
+                        <td>{{fila.login}}</td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

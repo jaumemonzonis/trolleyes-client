@@ -35,3 +35,16 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+th {
+	cursor:pointer;
+}
+
+.btn-light {
+ margin-left: 2px; 
+    
+}
+.fas {
+  width: 15px; 
+    
+}
