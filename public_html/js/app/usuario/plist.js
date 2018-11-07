@@ -2,7 +2,17 @@
 
 moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
     function ($scope, $http, $location, toolService, $routeParams) {
+
         $scope.totalPages = 1;
+
+        if (!$routeParams.order) {
+            $scope.orderURLServidor = "";
+            $scope.orderURLCliente = "";
+        } else {
+            $scope.orderURLServidor = "&order=" + $routeParams.order;
+            $scope.orderURLCliente = $routeParams.order;
+        }
+
         if (!$routeParams.rpp) {
             $scope.rpp = 10;
         } else {
@@ -18,19 +28,25 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
                 $scope.page = 1;
             }
         }
-        
-        if (!$routeParams.campo) {
-            $scope.campo = 'id';
-        } else {
-            $scope.campo = $routeParams.campo;
-        }
-        
-        if(!$routeParams.orden){
-            $scope.orden = 'asc';
-        }else{
-            $scope.orden = $routeParams.orden;
+
+
+        $scope.resetOrder = function () {
+            $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page);
         }
 
+
+        $scope.ordena = function (order, align) {
+            if ($scope.orderURLServidor == "") {
+                $scope.orderURLServidor = "&order=" + order + "," + align;
+                $scope.orderURLCliente = order + "," + align;
+            } else {
+                $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
+                $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
+            }
+            $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+        }
+
+        //getcount
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=getcount'
@@ -38,10 +54,11 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
             $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
-            $scope.list = [];
-            for (var i = 1; i <= $scope.totalPages; i++) {
-                $scope.list.push(i);
+            if ($scope.page > $scope.totalPages) {
+                $scope.page = $scope.totalPages;
+                $scope.update();
             }
+            pagination2();
         }, function (response) {
             $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
             $scope.status = response.status;
@@ -49,48 +66,52 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + '&orden=' + $scope.orden + '&campo=' + $scope.campo
+            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
-            $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.campo + `/` + $scope.orden);
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
         }, function (response) {
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
             $scope.status = response.status;
+            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
-        
-        
+
+
+
+        $scope.update = function () {
+            $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+        }
+
+
+
+
+        //paginacion neighbourhood
+        function pagination2() {
+            $scope.list2 = [];
+            $scope.neighborhood = 3;
+            for (var i = 1; i <= $scope.totalPages; i++) {
+                if (i === $scope.page) {
+                    $scope.list2.push(i);
+                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
+                    $scope.list2.push("...");
+                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
+                    $scope.list2.push("...");
+                }
+            }
+        }
+
+
+
+
         $scope.isActive = toolService.isActive;
 
 
-        $scope.vnpp = function(){
-            $http({
-                method: 'GET',
-                url: `http://localhost:8081/trolleyes/json?ob=usuario&op=getpage&rpp=${$scope.selectedItem}&page=1`
-            }).then(function (response) {
-                $location.url(`usuario/plist/${$scope.selectedItem}/1`);
-                $scope.status = response.status;
-                $scope.ajaxDataUsuarios = response.data.message;
-            }, function (response) {
-                $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-                $scope.status = response.status;
-            });
-        }
-        
-            $scope.order = function(campo,orden){
-            $http({
-                method: 'GET',
-                url: `http://localhost:8081/trolleyes/json?ob=usuario&op=getpage&rpp=${$scope.rpp}&page=${$scope.page}&campo=${campo}&order=${orden}`
-            }).then(function (response) {
-                $location.url(`usuario/plist/${$scope.rpp}/${$scope.page}/${campo}/${orden}`);
-                $scope.status = response.status;
-                $scope.ajaxDataUsuarios = response.data.message;
-            }, function (response) {
-                $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-                $scope.status = response.status;
-            });
-        }
-        
-  }
+
+    }
+
+
 
 ]);
