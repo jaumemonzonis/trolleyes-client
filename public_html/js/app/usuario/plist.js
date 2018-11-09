@@ -34,6 +34,17 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page);
         }
 
+        $scope.view = function (id) {
+            $location.url(`usuario/view/${id}`);
+        }
+
+        $scope.remove= function (id) {
+            $location.url(`usuario/remove/${id}`);
+        }
+
+        $scope.edit= function (id) {
+            $location.url(`usuario/edit/${id}`);
+        }
 
         $scope.ordena = function (order, align) {
             if ($scope.orderURLServidor == "") {
@@ -103,15 +114,6 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             }
         }
 
-
-
-
         $scope.isActive = toolService.isActive;
-
-
-
     }
-
-
-
 ]);

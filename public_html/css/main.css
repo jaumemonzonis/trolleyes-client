@@ -40,15 +40,26 @@ th {
 	cursor:pointer;
 }
 
-.btn-light {
-weight: 20px;
+button.btn.btn-light {
+ width: 30px; 
+ height: 30px;
     
 }
 .fas {
-  width: 15px; 
-    
+ width: 25px; 
+ height: 25px;
 }
 
 .nrpp{
     font-size: 13px;
+}
+
+.button_edit {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button_edit button {
+    margin: 1%;
 }

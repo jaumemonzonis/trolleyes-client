@@ -1,0 +1,69 @@
+
+<header ng-include="'js/app/header.html'"></header>
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top: 50px">
+            <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Usuarios Edit</h1>
+            </div>
+
+<form name="userForm" ng-submit="submitForm()" novalidate>
+
+        
+        <div class="form-group" ng-class="{ 'has-error' : userForm.id.$invalid && !userForm.id.$pristine }">
+            <label>ID</label>
+            <input type="text" name="id" class="form-control" ng-model="id" ng-required="true" id="id">
+            <p ng-show="userForm.id.$invalid && !userForm.id.$pristine" class="help-block">You name is required.</p>
+        </div>
+      
+       <div class="form-group" ng-class="{ 'has-error' : userForm.nombre.$invalid && !userForm.nombre.$pristine }">
+            <label>Nombre</label>
+            <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-required="true" id="nombre">
+            <p ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine" class="help-block">You name is required.</p>
+        </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : userForm.dni.$invalid && !userForm.dni.$pristine }">
+            <label>Dni</label>
+            <input type="text" name="dni" class="form-control" ng-model="dni" ng-required="true" id="dni">
+            <p ng-show="userForm.dni.$invalid && !userForm.dni.$pristine" class="help-block">You name is required.</p>
+        </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : userForm.ape1.$invalid && !userForm.ape1.$pristine }">
+            <label>Primer apellido</label>
+            <input type="text" name="ape1" class="form-control" ng-model="ape1" ng-required="true" id="ape1">
+            <p ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine" class="help-block">You name is required.</p>
+        </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : userForm.ape2.$invalid && !userForm.ape2.$pristine }">
+            <label>Segundo apellido</label>
+            <input type="text" name="ape2" class="form-control" ng-model="ape2" ng-required="true" id="ape2">
+            <p ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine" class="help-block">You name is required.</p>
+        </div>
+        
+    <div class="form-group" ng-class="{ 'has-error' : userForm.login.$invalid && !userForm.login.$pristine }">
+            <label>Login</label>
+            <input type="text" name="login" class="form-control" ng-model="login" ng-required="true" id="login">
+            <p ng-show="userForm.login.$invalid && !userForm.login.$pristine" class="help-block">You name is required.</p>
+        </div>
+    
+    <div class="form-group" ng-class="{ 'has-error' : userForm.pass.$invalid && !userForm.pass.$pristine }">
+            <label>Contraseña</label>
+            <input type="text" name="pass" class="form-control" ng-model="pass" ng-required="true" id="pass">
+            <p ng-show="userForm.pass.$invalid && !userForm.pass.$pristine" class="help-block">You name is required.</p>
+        </div>
+    
+     <div class="form-group" ng-class="{ 'has-error' : userForm.obj_tipoUsuario_desc.$invalid && !userForm.obj_tipoUsuario_desc.$pristine }">
+            <label>Tipo Usuario</label>
+            <input type="text" name="obj_tipoUsuario_desc" class="form-control" ng-model="desc" ng-required="true" id="obj_tipoUsuario_desc">
+            <p ng-show="userForm.obj_tipoUsuario_desc.$invalid && !userForm.obj_tipoUsuario_desc.$pristine" class="help-block">You name is required.</p>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+        
+    </form>
+
+            
+            
+        </main>
+    </div>
+</div>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>

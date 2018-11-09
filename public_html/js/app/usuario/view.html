@@ -1,0 +1,65 @@
+
+<header ng-include="'js/app/header.html'"></header>
+<div class="container-fluid">
+    <div class="row">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top: 50px">
+            <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Usuarios View</h1>
+            </div>
+
+
+
+
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <tr>
+                        <th>
+                            ID
+                           
+                        </th>
+                        <th>
+                            DNI
+                            
+                        </th>
+                        <th>
+                            Nombre
+                            
+                        </th>
+                        <th>
+                            Primer apellido
+                           
+                        </th>
+                        <th>
+                            Segundo apellido
+                            
+                        </th>
+                        <th>
+                            Nombre usuario
+                           
+                        </th>
+                        <th>
+                            Tipo de usuario
+                           
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <td>{{ajaxDataUsuarios.id}}</td>
+                        <td>{{ajaxDataUsuarios.dni}}</td>
+                        <td>{{ajaxDataUsuarios.nombre}}</td>
+                        <td>{{ajaxDataUsuarios.ape1}}</td>
+                        <td>{{ajaxDataUsuarios.ape2}}</td>
+                        <td>{{ajaxDataUsuarios.login}}</td>
+                        <td>{{ajaxDataUsuarios.obj_tipoUsuario.desc}}</td> 
+                    </tr>
+                </table>
+
+            </div>
+           
+        </main>
+    </div> 
+    <div class="button_edit">
+                 <button type="button" class="btn btn-primary" ng-click="volver()">Volver</button>
+    </div>
+</div>
+<footer class="footer" ng-include="'js/app/footer.html'"></footer>
