@@ -1,69 +1,85 @@
-
 <header ng-include="'js/app/header.html'"></header>
 <div class="container-fluid">
-    <div class="row">
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top: 50px">
-            <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Usuarios Edit</h1>
+  <div class="row" style="margin-top: 70px">
+    <div class="col-12">
+      <div class="row mt-5">
+        <div class="col-3 mx-auto">
+         <h3 class="text-center mb-3">Editar usuario</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 mx-auto">
+               <div class="alert alert-success" role="alert" ng-show="(visualizar)">
+                Usuario modificado correctamente.
             </div>
+          <form name="userForm" ng-show="(!visualizar)">
+            <div class="form-group">
+              <label>ID</label>
+              <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="id" />
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : userForm.dni.$invalid && !userForm.dni.$pristine }">
+              <label>DNI</label>
+              <input type="text" class="form-control" id="dni" name="dni" ng-model="dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
+              />
+              <div ng-show="userForm.dni.$error.pattern" class="alert alert-danger" role="alert">
+                Formato dni no valido
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" ng-model="nombre" ng-required="true" />
+              <div ng-show="!userForm.nombre.$valid" class="alert alert-danger" role="alert">
+                Nombre obligatorio
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Primer apellido</label>
+              <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" />
+              <div ng-show="!userForm.ape1.$valid" class="alert alert-danger" role="alert">
+                Primer apellido obligatorio
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Segundo apellido</label>
+              <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true" />
+              <div ng-show="!userForm.ape2.$valid" class="alert alert-danger" role="alert">
+                Segundo apellido obligatorio
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Login</label>
+              <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-required="true" />
+              <div ng-show="!userForm.login.$valid" class="alert alert-danger" role="alert">
+                Login obligatorio
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Contraseña</label>
+              <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
+                id="pass" name="pass" ng-model="pass" ng-minlength="3" ng-maxlength="10" ng-required="true"/>
+              <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                La longitud de la constraseña es demasiado corta
+              </div>
+              <div ng-show="userForm.pass.$error.maxlength" class="alert alert-danger" role="alert">
+                La longitud de la constraseña es demasiado larga
+              </div>
+              <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
+                La contraseña es obligatoria.
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tipo usuario</label>
+              <input type="text" class="form-control" id="obj_tipoUsuario_desc" name="obj_tipoUsuario_desc" ng-model="obj_tipoUsuario_desc"
+              />
+            </div>
+            <button ng-click="update()" type="button" class="btn btn-primary btn-block" ng-disabled="userForm.$invalid">Modificar usuario</button>
+          </form>  
+            <button type="button" class="btn btn-primary btn-block mt-2" ng-click="volver()">Volver</button>
 
-<form name="userForm" ng-submit="submitForm()" novalidate>
-
-        
-        <div class="form-group" ng-class="{ 'has-error' : userForm.id.$invalid && !userForm.id.$pristine }">
-            <label>ID</label>
-            <input type="text" name="id" class="form-control" ng-model="id" ng-required="true" id="id">
-            <p ng-show="userForm.id.$invalid && !userForm.id.$pristine" class="help-block">You name is required.</p>
+          
         </div>
-      
-       <div class="form-group" ng-class="{ 'has-error' : userForm.nombre.$invalid && !userForm.nombre.$pristine }">
-            <label>Nombre</label>
-            <input type="text" name="nombre" class="form-control" ng-model="nombre" ng-required="true" id="nombre">
-            <p ng-show="userForm.nombre.$invalid && !userForm.nombre.$pristine" class="help-block">You name is required.</p>
-        </div>
-    
-    <div class="form-group" ng-class="{ 'has-error' : userForm.dni.$invalid && !userForm.dni.$pristine }">
-            <label>Dni</label>
-            <input type="text" name="dni" class="form-control" ng-model="dni" ng-required="true" id="dni">
-            <p ng-show="userForm.dni.$invalid && !userForm.dni.$pristine" class="help-block">You name is required.</p>
-        </div>
-    
-    <div class="form-group" ng-class="{ 'has-error' : userForm.ape1.$invalid && !userForm.ape1.$pristine }">
-            <label>Primer apellido</label>
-            <input type="text" name="ape1" class="form-control" ng-model="ape1" ng-required="true" id="ape1">
-            <p ng-show="userForm.ape1.$invalid && !userForm.ape1.$pristine" class="help-block">You name is required.</p>
-        </div>
-    
-    <div class="form-group" ng-class="{ 'has-error' : userForm.ape2.$invalid && !userForm.ape2.$pristine }">
-            <label>Segundo apellido</label>
-            <input type="text" name="ape2" class="form-control" ng-model="ape2" ng-required="true" id="ape2">
-            <p ng-show="userForm.ape2.$invalid && !userForm.ape2.$pristine" class="help-block">You name is required.</p>
-        </div>
-        
-    <div class="form-group" ng-class="{ 'has-error' : userForm.login.$invalid && !userForm.login.$pristine }">
-            <label>Login</label>
-            <input type="text" name="login" class="form-control" ng-model="login" ng-required="true" id="login">
-            <p ng-show="userForm.login.$invalid && !userForm.login.$pristine" class="help-block">You name is required.</p>
-        </div>
-    
-    <div class="form-group" ng-class="{ 'has-error' : userForm.pass.$invalid && !userForm.pass.$pristine }">
-            <label>Contraseña</label>
-            <input type="text" name="pass" class="form-control" ng-model="pass" ng-required="true" id="pass">
-            <p ng-show="userForm.pass.$invalid && !userForm.pass.$pristine" class="help-block">You name is required.</p>
-        </div>
-    
-     <div class="form-group" ng-class="{ 'has-error' : userForm.obj_tipoUsuario_desc.$invalid && !userForm.obj_tipoUsuario_desc.$pristine }">
-            <label>Tipo Usuario</label>
-            <input type="text" name="obj_tipoUsuario_desc" class="form-control" ng-model="desc" ng-required="true" id="obj_tipoUsuario_desc">
-            <p ng-show="userForm.obj_tipoUsuario_desc.$invalid && !userForm.obj_tipoUsuario_desc.$pristine" class="help-block">You name is required.</p>
-        </div>
-        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
-        
-    </form>
-
-            
-            
-        </main>
+      </div>
     </div>
+  </div>
 </div>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>
