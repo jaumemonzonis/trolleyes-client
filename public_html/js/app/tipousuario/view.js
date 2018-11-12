@@ -1,9 +1,9 @@
 'use strict'
 
-moduleUsuario.controller("usuarioViewController", ['$scope', '$http', '$routeParams', '$window',
+moduleTipousuario.controller("tipousuarioViewController", ['$scope', '$http', '$routeParams', '$window',
     function ($scope, $http, $routeParams ,$window) {
 
-        $scope.ob="usuario";
+        $scope.ob="tipousuario";
         
         if (!$routeParams.id) {
             $scope.id = 1;

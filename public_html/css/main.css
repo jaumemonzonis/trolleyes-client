@@ -13,8 +13,8 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  height: 50px;
+  line-height: 50px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
 
@@ -39,17 +39,11 @@ code {
 th {
 	cursor:pointer;
 }
-
-button.btn.btn-light {
- width: 30px; 
- height: 30px;
+.btn.btn-light {
+   height: 30px;
+   width: 30px;
     
 }
-.fas {
- width: 25px; 
- height: 25px;
-}
-
 .nrpp{
     font-size: 13px;
 }
