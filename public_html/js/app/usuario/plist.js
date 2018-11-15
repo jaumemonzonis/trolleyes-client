@@ -1,5 +1,5 @@
 'use strict'
-
+//http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
 moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
     function ($scope, $http, $location, toolService, $routeParams) {
         
@@ -117,5 +117,8 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         }
 
         $scope.isActive = toolService.isActive;
+         $scope.openModal = function () {
+           
+        }
     }
 ]);
