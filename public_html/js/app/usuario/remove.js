@@ -42,7 +42,28 @@ moduleUsuario.controller("usuarioRemoveController", ['$scope', '$http', '$routeP
         $scope.volver = function () {
             $window.history.back();
         }
+   $http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
+        }).then(function (response) {
+            $scope.estado = response.data.status;
+            $scope.nombre = response.data.message["login"];
 
+        }, function (response) {
+            $scope.ajaxData = response.data.message || 'Request failed';
+            $scope.estado = response.status;
+});
+$http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
+        }).then(function (response) {
+            $scope.estado = response.data.status;
+            $scope.nombre = response.data.message["login"];
+
+        }, function (response) {
+            $scope.ajaxData = response.data.message || 'Request failed';
+            $scope.estado = response.status;
+}); 
     }
 
 ]);

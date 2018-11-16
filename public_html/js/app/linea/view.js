@@ -1,9 +1,9 @@
 'use strict'
 
-moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeParams', '$window',
+moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams', '$window',
     function ($scope, $http, $routeParams ,$window) {
 
-        $scope.ob="producto";
+        $scope.ob="linea";
         
         if (!$routeParams.id) {
             $scope.id = 1;
@@ -27,7 +27,7 @@ moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeP
           $scope.volver = function () {
             $window.history.back();
             };
-       $http({
+        $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
         }).then(function (response) {
@@ -37,7 +37,7 @@ moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeP
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-});  
+}); 
     }
 
 ]);

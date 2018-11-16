@@ -57,3 +57,8 @@ th {
 .button_edit button {
     margin: 1%;
 }
+
+.nombreusuario {
+    color: yellow; 
+    margin-right: 30px;
+}

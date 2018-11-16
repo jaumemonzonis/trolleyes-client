@@ -25,10 +25,14 @@
             <li class="nav-item" ng-class="{'active': isActive('/tipoproducto/plist')}">
                 <a class="nav-link" href="tipoproducto/plist">Tipoproducto</a>
             </li>
-             <li class="nav-item" ng-class="{'active': isActive('/linea/plist')}">
+            <li class="nav-item" ng-class="{'active': isActive('/linea/plist')}">
                 <a class="nav-link" href="linea/plist">Linea</a>
             </li>
 
         </ul>
-    </div>
+
+    <div class="nombreusuario" ng-show="estado == 200">{{nombre}}</div>
+    <a href="/trolleyes-client//usuario/login/" ng-show="estado != 200" class="btn btn-info" role="button" >Login</a>
+    <a href="/trolleyes-client/usuario/logout/" ng-show="estado == 200" class="btn btn-warning" role="button" >Logout</a>
+</div>
 </nav>
