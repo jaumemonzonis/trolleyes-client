@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-          <h3 class="text-center mb-3">Ver Lineas</h3>
+          <h3 class="text-center mb-3">Ver Facturas</h3>
         </div>
       </div>
       <div class="row">
@@ -16,15 +16,15 @@
                         <th>ID</th><td>{{ajaxDataUsuarios.id}}</td>
                     </tr>
                     <tr>
-                        <th>Cantidad</th><td>{{ajaxDataUsuarios.cantidad}}</td>
+                        <th>Fecha </th><td>{{ajaxDataUsuarios.fecha}}</td>
                     </tr>
                     <tr>
-                        <th>Producto</th><td>{{ajaxDataUsuarios.obj_producto.desc}}</td>
+                        <th>IVA</th><td>{{ajaxDataUsuarios.iva}}</td>
                     </tr>
                     <tr>
-                        <th>Factura</th><td>{{ajaxDataUsuarios.obj_factura.id}}</td>
+                        <th>Usuario</th><td><a class="page-link" href="usuario/view/{{ajaxDataUsuarios.obj_usuario.id}}">{{ajaxDataUsuarios.obj_usuario.nombre}} {{ajaxDataUsuarios.obj_usuario.ape1}} {{ajaxDataUsuarios.obj_usuario.ape2}}</a></td>
                     </tr>
- 
+                    
                 </table>
 
             </div>

@@ -6,9 +6,14 @@ moduleProducto.controller("productoEditController", [
     "$routeParams",
     "toolService",
     "$window",
-    function ($scope, $http, $routeParams, toolService, $window) {
+    'sessionService',
+    function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
 
         $scope.ob = "producto";
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
 
 
         if (!$routeParams.id) {
@@ -32,7 +37,7 @@ moduleProducto.controller("productoEditController", [
 
             $scope.obj_tipoProducto_id = response.data.message.obj_tipoProducto.id;
             $scope.obj_tipoProducto_desc = response.data.message.obj_tipoProducto.desc;
-            
+
         }), function (response) {
             console.log(response);
         };
@@ -80,6 +85,6 @@ moduleProducto.controller("productoEditController", [
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 ]);

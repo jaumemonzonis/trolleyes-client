@@ -1,8 +1,8 @@
 
 'use strict'
 
-moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService) {
         $scope.ob = "tipoproducto";
         $scope.totalPages = 1;
 
@@ -13,7 +13,10 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             $scope.orderURLServidor = "&order=" + $routeParams.order;
             $scope.orderURLCliente = $routeParams.order;
         }
-
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
         if (!$routeParams.rpp) {
             $scope.rpp = 10;
         } else {
@@ -93,20 +96,20 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
                 }
             }
         }
-        
-         $scope.resetOrder = function () {
-            $location.url($scope.ob +`/plist/` + $scope.rpp + `/` + $scope.page);
+
+        $scope.resetOrder = function () {
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page);
         }
         $scope.view = function (id) {
-            $location.url($scope.ob +`/view/${id}`);
+            $location.url($scope.ob + `/view/${id}`);
         }
 
-        $scope.remove= function (id) {
-            $location.url($scope.ob +`/remove/${id}`);
+        $scope.remove = function (id) {
+            $location.url($scope.ob + `/remove/${id}`);
         }
 
-        $scope.edit= function (id) {
-            $location.url($scope.ob +`/edit/${id}`);
+        $scope.edit = function (id) {
+            $location.url($scope.ob + `/edit/${id}`);
         }
         $scope.isActive = toolService.isActive;
         $http({
@@ -119,7 +122,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 
 

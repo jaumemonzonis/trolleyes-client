@@ -1,14 +1,25 @@
 'use strict'
-
-moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+//http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
+//http://localhost:8081/trolleyes/json?ob=factura&op=getpagexusuario&rpp=10&page=1&idusuario=12
+//http://localhost:8081/trolleyes/json?ob=factura&op=getcountxusuario&idusuario=12
+moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
 
-        $scope.ob = "tipousuario";
+        $scope.ob = "factura";
         $scope.totalPages = 1;
+        
+        
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
         }
+
+        if (!$routeParams.id) {
+            $scope.id= 0;  
+        } else {
+            $scope.id= $routeParams.id;
+        }
+
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -51,7 +62,6 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             $location.url($scope.ob + `/edit/${id}`);
         }
 
-
         $scope.ordena = function (order, align) {
             if ($scope.orderURLServidor == "") {
                 $scope.orderURLServidor = "&order=" + order + "," + align;
@@ -63,11 +73,10 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         }
 
-
         //getcount
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getcount'
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getcountxusuario&idusuario=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
@@ -81,10 +90,14 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
             $scope.status = response.status;
         });
-
+        
+     
+        
+        
+        
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getpagexusuario&rpp=' + $scope.rpp + '&page=' + $scope.page + '&idusuario=' + $scope.id + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
@@ -93,7 +106,17 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
 
-
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=get&id=' + $scope.id
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.nombre = response.data.message.nombre;
+            $scope.ape1 = response.data.message.ape1;
+        }, function (response) {
+            $scope.status = response.status;
+            
+        });
 
         $scope.update = function () {
             $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
@@ -122,6 +145,10 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
         }
 
         $scope.isActive = toolService.isActive;
+        $scope.openModal = function () {
+
+        }
+
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
@@ -133,5 +160,6 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
         });
+
     }
 ]);

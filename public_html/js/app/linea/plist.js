@@ -1,11 +1,15 @@
 'use strict'
 //http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
-moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
-        
-        $scope.ob="linea";
+moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService) {
+
+        $scope.ob = "linea";
         $scope.totalPages = 1;
-         
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -13,7 +17,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
         } else {
             $scope.orderURLServidor = "&order=" + $routeParams.order;
             $scope.orderURLCliente = $routeParams.order;
-}
+        }
 
         if (!$routeParams.rpp) {
             $scope.rpp = 10;
@@ -33,19 +37,19 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
 
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob +`/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page);
         }
 
         $scope.view = function (id) {
-            $location.url($scope.ob +`/view/${id}`);
+            $location.url($scope.ob + `/view/${id}`);
         }
 
-        $scope.remove= function (id) {
-            $location.url($scope.ob +`/remove/${id}`);
+        $scope.remove = function (id) {
+            $location.url($scope.ob + `/remove/${id}`);
         }
 
-        $scope.edit= function (id) {
-            $location.url($scope.ob +`/edit/${id}`);
+        $scope.edit = function (id) {
+            $location.url($scope.ob + `/edit/${id}`);
         }
 
         $scope.ordena = function (order, align) {
@@ -56,13 +60,13 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url($scope.ob +`/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         }
 
         //getcount
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=getcount'
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getcount'
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuariosNumber = response.data.message;
@@ -79,7 +83,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
@@ -91,7 +95,7 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
 
 
         $scope.update = function () {
-            $location.url($scope.ob +`/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         }
 
 
@@ -117,8 +121,8 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
         }
 
         $scope.isActive = toolService.isActive;
-         $scope.openModal = function () {
-           
+        $scope.openModal = function () {
+
         }
         $http({
             method: 'GET',
@@ -130,6 +134,6 @@ moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 ]);

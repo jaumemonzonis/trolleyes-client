@@ -1,9 +1,9 @@
 'use strict'
 
-moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
-    function ($scope, $http, $routeParams, $window, oSessionService) {
+moduleLinea.controller("lineaRemoveController", ['$scope', '$http', '$routeParams', '$window','sessionService',
+    function ($scope, $http, $routeParams, $window,oSessionService) {
 
-        $scope.ob = "producto";
+        $scope.ob = "linea";
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;

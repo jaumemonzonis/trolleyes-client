@@ -47,23 +47,23 @@
             <div class="row">
                 <div class="col-6">
                     <nav aria-label="paginacion">
-                        <ul class="pagination">
-                           <li class="page-item">
-                                <a class="page-link" ng-show="page > 2" href="{{ob}}/plist/{{rpp}}/1/{{order}}">First</a>
+<ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" ng-show="page > 2" href="{{ob}}/plist/{{rpp}}/1/{{order}}/{{align}}">First</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page > 1" href="{{ob}}/plist/{{rpp}}/{{page - 1}}/{{order}}">Previous</a>
+                                <a class="page-link" ng-show="page > 1" href="{{ob}}/plist/{{rpp}}/{{page - 1}}/{{order}}/{{align}}">Previous</a>
                             </li>
                             <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
-                                <a class="page-link" href="{{ob}}/plist/{{rpp}}/{{p}}/{{order}}">{{p}}</a>
+                                <a class="page-link" href="{{ob}}/plist/{{rpp}}/{{p}}/{{order}}/{{align}}">{{p}}</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page != totalPages" href="{{ob}}/plist/{{rpp}}/{{page--1}}/{{order}}">Next</a>
+                                <a class="page-link" ng-show="page != totalPages" href="{{ob}}/plist/{{rpp}}/{{page--1}}/{{order}}/{{align}}">Next</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page != totalPages-1 && page != totalPages" href="{{ob}}/plist/{{rpp}}/{{totalPages}}/{{order}}">Last</a>
+                                <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="{{ob}}/plist/{{rpp}}/{{totalPages}}/{{order}}/{{align}}">Last</a>
                             </li>
-                        </ul>
+</ul>
                     </nav>
                 </div>
                 <div class="col-6 new">

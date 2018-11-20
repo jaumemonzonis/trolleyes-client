@@ -6,11 +6,16 @@ moduleProducto.controller("productoNewController", [
     "$routeParams",
     "toolService",
     "$window",
-    function ($scope, $http, $routeParams, toolService, $window) {
+    'sessionService',
+    function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
 
         $scope.ob = "producto";
         $scope.id = null;
-       
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
 
         $scope.isActive = toolService.isActive;
 
@@ -55,6 +60,6 @@ moduleProducto.controller("productoNewController", [
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 ]);

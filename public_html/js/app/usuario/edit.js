@@ -1,13 +1,7 @@
 "use strict";
 
-moduleUsuario.controller("usuarioEditController", [
-  "$scope",
-  "$http",
-  "$routeParams",
-  "toolService",
-  "$window",
-  function ($scope, $http, $routeParams, toolService,$window) {
-      
+moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
        $scope.ob="usuario";
 
 
@@ -16,7 +10,14 @@ moduleUsuario.controller("usuarioEditController", [
         } else {
             $scope.id = $routeParams.id;
         }    
-             
+         
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
+        
+        
     $http({
       method: "GET",
        url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
@@ -28,7 +29,7 @@ moduleUsuario.controller("usuarioEditController", [
       $scope.ape1 = response.data.message.ape1;
       $scope.ape2 = response.data.message.ape2;
       $scope.login = response.data.message.login;
-      $scope.pass = 'pass';
+      $scope.pass = response.data.message.pass;
       $scope.obj_tipoUsuario_desc = response.data.message.obj_tipoUsuario.desc;
       $scope.obj_tipoUsuario_id = response.data.message.obj_tipoUsuario.id;
     }), function (response) {
@@ -47,7 +48,7 @@ $scope.isActive = toolService.isActive;
         ape1: $scope.ape1,
         ape2: $scope.ape2,
         login: $scope.login,
-        pass: $scope.pass,
+        pass: forge_sha256($scope.pass),
         id_tipoUsuario:  $scope.obj_tipoUsuario_id
       }
       $http({
@@ -81,16 +82,6 @@ $scope.isActive = toolService.isActive;
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
 });
-$http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
 
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-}); 
   }
 ]);

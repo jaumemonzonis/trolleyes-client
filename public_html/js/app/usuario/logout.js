@@ -1,20 +1,24 @@
 'use strict'
 
-moduleUsuario.controller('usuarioLogoutController', ['$scope', '$http', 'toolService', '$location',
-    function ($scope, $http, toolService, $location) {
+moduleUsuario.controller('usuarioLogoutController', ['$scope', '$http', 'toolService', 'sessionService','$location',
+    function ($scope, $http, toolService, oSessionService, $location) {
+
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
 
 
         $http({
-            method: "GET",
+            method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=logout'
-        }).then(function (response) {
-            console.log(response);
-            $scope.status = response.status;
-        }), function (response) {
-            console.log(response);
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.status = response.status;
-        };
+        }).then(function () {
+            $scope.validlog = false;
+            $scope.failog = true;
+            oSessionService.setSessionInactive();
+        });
+        
 
         $scope.isActive = toolService.isActive;
 
@@ -25,17 +29,6 @@ moduleUsuario.controller('usuarioLogoutController', ['$scope', '$http', 'toolSer
 
         }
 
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
+        
 
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-        });
-
-
-}]);
+    }]);

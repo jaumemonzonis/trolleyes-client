@@ -1,23 +1,35 @@
 "use strict";
 
-moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
 
-        $scope.ob = "tipousuario";
-        $scope.id = null;
-        
+moduleFactura.controller('facturanewxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
         }
+        
+        if (!$routeParams.id) {
+            $scope.id_usuario= 0;  
+        } else {
+            $scope.id_usuario= $routeParams.id;
+        }
+        
+        $scope.ob = "factura";
+        $scope.id = null;
+ 
+
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
             $scope.visualizar = false;
+            $scope.error = false;
             var json = {
                 id: null,
-                desc: $scope.desc
-            }
+                fecha: $scope.fecha,
+                iva: $scope.iva,
+                id_usuario: $scope.id_usuario
+            };
+
             $http({
                 method: 'GET',
                 header: {
@@ -36,7 +48,7 @@ moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$l
 
         $scope.volver = function () {
             $window.history.back();
-        }
+        };
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
@@ -48,5 +60,6 @@ moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$l
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
         });
+
     }
 ]);

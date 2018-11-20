@@ -4,42 +4,40 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-          <h3 class="text-center mb-3">Borrar Tipo de Usuario</h3>
+          <h3 class="text-center mb-3">Borrar factura</h3>
         </div>
       </div>
       <div class="row">
         <div class="col-3 mx-auto">
-                           <div class="alert alert-success" role="alert" ng-show="(visualizar)">
-                Tipo de Usuario borrado correctamente.
-            </div>
             <div class="table-responsive" ng-show="(!visualizar)">
-            
-                <div class="table-responsive">
-               <table class="table table-striped table-sm">
+                <table class="table table-striped table-sm">
                     <tr>
                         <th>ID</th><td>{{ajaxDataUsuarios.id}}</td>
                     </tr>
                     <tr>
-                        <th>Descripción</th><td>{{ajaxDataUsuarios.desc}}</td>
+                        <th>Fecha </th><td>{{ajaxDataUsuarios.fecha}}</td>
                     </tr>
-        
+                    <tr>
+                        <th>IVA</th><td>{{ajaxDataUsuarios.iva}}</td>
+                    </tr>
+                    <tr>
+                        <th>Usuario</th><td><a class="page-link" href="usuario/view/{{ajaxDataUsuarios.obj_usuario.id}}">{{ajaxDataUsuarios.obj_usuario.nombre}} {{ajaxDataUsuarios.obj_usuario.ape1}} {{ajaxDataUsuarios.obj_usuario.ape2}}</a></td>
+                    </tr>
+                    
                 </table>
-
             </div>
-  
             <div class="alert alert-success" role="alert" ng-show="(visualizar)">
-                Tipo de Usuario borrado  correctamente.
+                Factura borrada correctamente.
             </div>
                <div class="alert alert-danger" role="alert" ng-show="(error)">
-                Error al borrar el Tipo de Usuario.
+                Error al borrar la factura.
             </div>
             <div class="button_edit">
-                <button type="button" class="btn btn-primary btn-block" ng-click="remove()" ng-show="(!visualizar)">Eliminar</button>
-               
+                <button type="button" class="btn btn-primary" ng-click="remove()" ng-show="(!visualizar)">Eliminar</button>
+                <button type="button" class="btn btn-primary" ng-click="volver()">Volver</button>
             </div>
    
         </div>
-             <button type="button" class="btn btn-primary btn-block" ng-click="volver()">Volver</button>
       </div>
     </div>
   </div>

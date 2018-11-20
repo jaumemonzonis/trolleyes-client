@@ -1,45 +1,40 @@
 "use strict";
 
-moduleTipousuario.controller("tipousuarioRemoveController", [
+moduleLinea.controller("lineaNewController", [
     "$scope",
     "$http",
     "$routeParams",
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
 
-        $scope.ob = "tipousuario";
-        
+        $scope.ob = "linea";
+        $scope.id = null;
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
         }
-        if (!$routeParams.id) {
-            $scope.id = 1;
-        } else {
-            $scope.id = $routeParams.id;
-        }
 
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
-        }).then(function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message;
-        }, function (response) {
-            $scope.status = response.status;
-            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-        });
 
-        $scope.visualizar = false;
-        $scope.error = false;
+        $scope.isActive = toolService.isActive;
 
-        $scope.remove = function () {
+        $scope.update = function () {
+            $scope.visualizar = false;
+            $scope.error = false;
+            var json = {
+                cantidad: $scope.cantidad,
+                id_factura: 1,
+                id_producto: 2
+            };
+
             $http({
-                method: "GET",
-                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
-
+                method: 'GET',
+                header: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=create',
+                params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 console.log(response);
                 $scope.visualizar = true;
@@ -51,7 +46,7 @@ moduleTipousuario.controller("tipousuarioRemoveController", [
 
         $scope.volver = function () {
             $window.history.back();
-        }
+        };
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
@@ -63,7 +58,5 @@ moduleTipousuario.controller("tipousuarioRemoveController", [
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
         });
-
     }
-
 ]);

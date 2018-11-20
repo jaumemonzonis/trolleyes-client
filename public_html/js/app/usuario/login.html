@@ -17,9 +17,12 @@
                    id="pass" name="pass" ng-model="pass" ng-required="true"/>
         </div>
         <button ng-click="log()" class="btn btn-primary">Login</button>
-        
-        <h3 ng-show="error == true">Entrada erronea.</h3>
-    </form>
+        </form>
+          <div class="alert alert-danger" role="alert" ng-show="failog">
+                Error al logear.
+            </div>
+
+    
 </div>
         </div>
 </main>

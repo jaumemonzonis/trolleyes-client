@@ -1,7 +1,7 @@
 'use strict'
 
-moduleUsuario.controller("usuarioViewController", ['$scope', '$http', '$routeParams', '$window',
-    function ($scope, $http, $routeParams ,$window) {
+moduleUsuario.controller('usuarioViewController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
 
         $scope.ob="usuario";
         
@@ -10,6 +10,12 @@ moduleUsuario.controller("usuarioViewController", ['$scope', '$http', '$routePar
         } else {
             $scope.id = $routeParams.id;
         }
+        
+           if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+        
 
         $http({
             method: 'GET',
@@ -38,17 +44,7 @@ moduleUsuario.controller("usuarioViewController", ['$scope', '$http', '$routePar
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
 }); 
-   $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-}); 
+   
  }
 
 ]);

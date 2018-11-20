@@ -1,19 +1,22 @@
 'use strict'
 
-moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', '$routeParams', '$window',
-    function ($scope, $http, $routeParams ,$window) {
+moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', '$routeParams', '$window','sessionService',
+    function ($scope, $http, $routeParams, $window,oSessionService) {
 
-        $scope.ob="tipoproducto";
-        
+        $scope.ob = "tipoproducto";
+
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
             $scope.id = $routeParams.id;
         }
-
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
@@ -21,13 +24,13 @@ moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', 
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
-        
-        
-               
-          $scope.volver = function () {
+
+
+
+        $scope.volver = function () {
             $window.history.back();
-            };
-       $http({
+        };
+        $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
         }).then(function (response) {
@@ -37,7 +40,7 @@ moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', 
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-});  
+        });
     }
 
 ]);
