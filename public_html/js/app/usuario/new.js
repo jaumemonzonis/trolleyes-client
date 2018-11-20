@@ -1,13 +1,20 @@
 "use strict";
 
 
-moduleUsuario.controller('usuarioNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window',
-function ($scope, $http, $location, toolService, $routeParams, $window) {
+moduleUsuario.controller('usuarioNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
       
   $scope.ob="usuario";
   $scope.id= null;
   $scope.pass = 'pass';
   $scope.id_tipoUsuario = 2;
+  
+             if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
+  
   
 $scope.isActive = toolService.isActive;
 
@@ -21,7 +28,7 @@ $scope.isActive = toolService.isActive;
         ape1: $scope.ape1,
         ape2: $scope.ape2,
         login: $scope.login,
-        pass: 'pass',
+        pass: forge_sha256($scope.login),
         id_tipoUsuario: 2
       };
       
@@ -55,16 +62,6 @@ $scope.isActive = toolService.isActive;
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
 });
-$http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
 
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-}); 
   }
 ]);

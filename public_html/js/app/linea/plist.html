@@ -43,23 +43,23 @@
             <div class="row">
                 <div class="col-6">
                     <nav aria-label="paginacion">
-                        <ul class="pagination">
-                           <li class="page-item">
-                                <a class="page-link" ng-show="page > 2" href="{{ob}}/plist/{{rpp}}/1/{{order}}">First</a>
+       <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" ng-show="page > 2" href="usuario/plist/{{rpp}}/1/{{orderURLCliente}}">First</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page > 1" href="{{ob}}/plist/{{rpp}}/{{page - 1}}/{{order}}">Previous</a>
+                                <a class="page-link" ng-show="page > 1" href="usuario/plist/{{rpp}}/{{page - 1}}/{{orderURLCliente}}">Previous</a>
                             </li>
                             <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
-                                <a class="page-link" href="{{ob}}/plist/{{rpp}}/{{p}}/{{order}}">{{p}}</a>
+                                <a class="page-link" href="usuario/plist/{{rpp}}/{{p}}/{{orderURLCliente}}">{{p}}</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page != totalPages" href="{{ob}}/plist/{{rpp}}/{{page--1}}/{{order}}">Next</a>
+                                <a class="page-link" ng-show="page != totalPages" href="usuario/plist/{{rpp}}/{{page--1}}/{{orderURLCliente}}">Next</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" ng-show="page != totalPages-1 && page != totalPages" href="{{ob}}/plist/{{rpp}}/{{totalPages}}/{{order}}">Last</a>
+                                <a class="page-link" ng-show="page != totalPages-1 && page != totalPages" href="usuario/plist/{{rpp}}/{{totalPages}}/{{orderURLCliente}}">Last</a>
                             </li>
-                        </ul>
+</ul>
                     </nav>
                 </div>
                 <div class="col-6 new">
@@ -93,7 +93,7 @@
                             </button>
                         </th>
                         <th>
-                            Id producto
+                           Producto
                             <button type="button" class="btn btn-light" ng-click="ordena('id_producto', 'asc')">
                                 <a class="fas fa-long-arrow-alt-up" ></a>
 
@@ -103,7 +103,7 @@
                             </button>
                         </th>
                         <th>
-                           Id factura
+                           Factura
                             <button type="button" class="btn btn-light" ng-click="ordena('id_factura', 'asc')">
                                 <i class="fas fa-long-arrow-alt-up"></i>
                             </button>
@@ -119,8 +119,8 @@
                         <td>{{fila.id}}</td>
                         <td>{{fila.cantidad}}</td>
 
-                        <td><a class="page-link" href="producto/view/{{fila.id_producto}}">{{fila.id_producto}}</a></td>
-                        <td><a class="page-link" href="factura/view/{{fila.id_factura}}">{{fila.id_factura}}</a></td>
+                        <td><a class="page-link" href="producto/view/{{fila.obj_producto.id}}">{{fila.obj_producto.desc}}</a></td>
+                        <td><a class="page-link" href="factura/view/{{fila.obj_factura.id}}">{{fila.obj_factura.id}}</a></td>
                         <td><button type="button" class="btn btn-light" ng-click="view(fila.id)">
                         <i class="fas fa-eye"></i>
                     </button>

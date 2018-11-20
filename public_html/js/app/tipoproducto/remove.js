@@ -6,10 +6,14 @@ moduleTipoproducto.controller("tipoproductoRemoveController", [
     "$routeParams",
     "toolService",
     "$window",
-    function ($scope, $http, $routeParams, toolService, $window) {
+    'sessionService',
+    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
 
         $scope.ob = "tipoproducto";
-
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
@@ -47,7 +51,7 @@ moduleTipoproducto.controller("tipoproductoRemoveController", [
         $scope.volver = function () {
             $window.history.back();
         }
-$http({
+        $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
         }).then(function (response) {
@@ -57,7 +61,7 @@ $http({
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 
 ]);

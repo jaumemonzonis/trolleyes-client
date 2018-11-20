@@ -1,10 +1,14 @@
 'use strict'
 
-moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams', '$window',
-    function ($scope, $http, $routeParams ,$window) {
+moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams', '$window','sessionService',
+    function ($scope, $http, $routeParams, $window,oSessionService) {
 
-        $scope.ob="linea";
-        
+        $scope.ob = "linea";
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
@@ -13,7 +17,7 @@ moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams'
 
         $http({
             method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
@@ -21,12 +25,12 @@ moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams'
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
-        
-        
-               
-          $scope.volver = function () {
+
+
+
+        $scope.volver = function () {
             $window.history.back();
-            };
+        };
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
@@ -37,7 +41,7 @@ moduleLinea.controller("lineaViewController", ['$scope', '$http', '$routeParams'
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
+        });
     }
 
 ]);

@@ -1,13 +1,12 @@
 'use strict'
 
-moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
+moduleFactura.controller("facturaRemoveController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
     function ($scope, $http, $routeParams, $window, oSessionService) {
-
-        $scope.ob = "producto";
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
         }
+        $scope.ob = "factura";
 
         if (!$routeParams.id) {
             $scope.id = 1;
@@ -57,6 +56,7 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
         });
+
     }
 
 ]);

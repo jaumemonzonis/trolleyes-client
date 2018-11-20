@@ -1,11 +1,16 @@
 'use strict'
 //http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
-moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams',
-    function ($scope, $http, $location, toolService, $routeParams) {
+moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
+    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
         
         $scope.ob="usuario";
         $scope.totalPages = 1;
-         
+
+           if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
@@ -121,27 +126,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
            
         }
         
-           $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
 
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-});
-$http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-}); 
+ 
     }
 ]);

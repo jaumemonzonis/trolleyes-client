@@ -1,23 +1,28 @@
 "use strict";
 
-moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
 
-        $scope.ob = "tipousuario";
-        $scope.id = null;
-        
+moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
         }
+        $scope.ob = "factura";
+        $scope.id = null;
+        $scope.id_usuario = "320";
+
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
             $scope.visualizar = false;
+            $scope.error = false;
             var json = {
                 id: null,
-                desc: $scope.desc
-            }
+                fecha: $scope.fecha,
+                iva: $scope.iva,
+                id_usuario: 320
+            };
+
             $http({
                 method: 'GET',
                 header: {
@@ -36,7 +41,7 @@ moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$l
 
         $scope.volver = function () {
             $window.history.back();
-        }
+        };
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
@@ -48,5 +53,6 @@ moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$l
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
         });
+
     }
 ]);

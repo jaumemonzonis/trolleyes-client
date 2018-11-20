@@ -1,45 +1,130 @@
 'use strict'
+//http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
+moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
 
-moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService',
-        function ($scope, $http, $location, toolService) {
-            $scope.ruta = $location.path();
-            $scope.var1 = "Hola mundo";
-            $scope.var2 = "Hola qué tal";
-            $scope.mostrar = false;
-            $scope.activar = true;
-            $scope.ajaxData = "";
-            $scope.toggle = function () {
-                $scope.mostrar = !$scope.mostrar;
+        $scope.ob = "factura";
+        $scope.totalPages = 1;
+        if (oSessionService.getUserName() !== "") {
+            $scope.nombre = oSessionService.getUserName();
+            $scope.validlog = true;
+        }
+
+        if (!$routeParams.order) {
+            $scope.orderURLServidor = "";
+            $scope.orderURLCliente = "";
+        } else {
+            $scope.orderURLServidor = "&order=" + $routeParams.order;
+            $scope.orderURLCliente = $routeParams.order;
+        }
+
+        if (!$routeParams.rpp) {
+            $scope.rpp = 10;
+        } else {
+            $scope.rpp = $routeParams.rpp;
+        }
+
+        if (!$routeParams.page) {
+            $scope.page = 1;
+        } else {
+            if ($routeParams.page >= 1) {
+                $scope.page = $routeParams.page;
+            } else {
+                $scope.page = 1;
             }
-            $scope.enable = function () {
-                $scope.activar = !$scope.activar;
+        }
+
+
+        $scope.resetOrder = function () {
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page);
+        }
+
+        $scope.view = function (id) {
+            $location.url($scope.ob + `/view/${id}`);
+        }
+
+        $scope.remove = function (id) {
+            $location.url($scope.ob + `/remove/${id}`);
+        }
+
+        $scope.edit = function (id) {
+            $location.url($scope.ob + `/edit/${id}`);
+        }
+
+        $scope.ordena = function (order, align) {
+            if ($scope.orderURLServidor == "") {
+                $scope.orderURLServidor = "&order=" + order + "," + align;
+                $scope.orderURLCliente = order + "," + align;
+            } else {
+                $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
+                $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $scope.usuarios = function () {
-                $http({
-                    method: 'GET',
-                    //withCredentials: true,
-                    url: 'http://localhost:8081/trolleyes/json?ob=factura&op=getpage&rpp=10&page=1'
-                }).then(function (response) {
-                    $scope.status = response.status;
-                    $scope.ajaxDataUsuarios = response.data.message;
-                }, function (response) {
-                    $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
-                    $scope.status = response.status;
-                });
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+        }
+
+        //getcount
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getcount'
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataUsuariosNumber = response.data.message;
+            $scope.totalPages = Math.ceil($scope.ajaxDataUsuariosNumber / $scope.rpp);
+            if ($scope.page > $scope.totalPages) {
+                $scope.page = $scope.totalPages;
+                $scope.update();
             }
-            $http({
-                method: 'GET',
-                //withCredentials: true,
-                url: 'http://localhost:8081/trolleyes/json?ob=factura&op=get&id=1'
-            }).then(function (response) {
-                $scope.status = response.status;
-                $scope.ajaxData = response.data.message;
-            }, function (response) {
-                $scope.ajaxData = response.data.message || 'Request failed';
-                $scope.status = response.status;
-            });
-            $scope.isActive = toolService.isActive;
-$http({
+            pagination2();
+        }, function (response) {
+            $scope.ajaxDataUsuariosNumber = response.data.message || 'Request failed';
+            $scope.status = response.status;
+        });
+
+        $http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=getpage&rpp=' + $scope.rpp + '&page=' + $scope.page + $scope.orderURLServidor
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataUsuarios = response.data.message;
+        }, function (response) {
+            $scope.status = response.status;
+            $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+        });
+
+
+
+        $scope.update = function () {
+            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+        }
+
+
+
+
+        //paginacion neighbourhood
+        function pagination2() {
+            $scope.list2 = [];
+            $scope.neighborhood = 3;
+            for (var i = 1; i <= $scope.totalPages; i++) {
+                if (i === $scope.page) {
+                    $scope.list2.push(i);
+                } else if (i <= $scope.page && i >= ($scope.page - $scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i >= $scope.page && i <= ($scope.page - -$scope.neighborhood)) {
+                    $scope.list2.push(i);
+                } else if (i === ($scope.page - $scope.neighborhood) - 1) {
+                    $scope.list2.push("...");
+                } else if (i === ($scope.page - -$scope.neighborhood) + 1) {
+                    $scope.list2.push("...");
+                }
+            }
+        }
+
+        $scope.isActive = toolService.isActive;
+        $scope.openModal = function () {
+
+        }
+
+        $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
         }).then(function (response) {
@@ -49,6 +134,7 @@ $http({
         }, function (response) {
             $scope.ajaxData = response.data.message || 'Request failed';
             $scope.estado = response.status;
-}); 
-        }
+        });
+
+    }
 ]);
