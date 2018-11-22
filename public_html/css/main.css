@@ -40,33 +40,21 @@ th {
 	cursor:pointer;
 }
 .btn.btn-light {
+   height: 35px;
+   width: 35px;
+   
+}
+.btn.btn-light.icon{
    height: 30px;
    width: 30px;
-    
+   
 }
 .nrpp{
     font-size: 13px;
 }
 
-.button_edit {
-    display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.button_edit button {
-    margin: 1%;
-}
 
 .nombreusuario {
     color: yellow; 
     margin-right: 30px;
-}
-
-tabletipoproducto {
-    border-radius: 5px;
-    width: 50%;
-  margin: auto;
-  margin-top: 100px;
-    float: none;
 }

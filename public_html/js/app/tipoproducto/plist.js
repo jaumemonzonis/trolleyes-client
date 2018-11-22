@@ -112,17 +112,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             $location.url($scope.ob + `/edit/${id}`);
         }
         $scope.isActive = toolService.isActive;
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-        });
+        
     }
 
 

@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-          <h3 class="text-center mb-3">Nuevo Tipo de Usuario</h3>
+          <h4 class="text-center mb-3"><i class="fas fas fa-users fa-1x"></i> Nuevo Tipo de Usuario</h4>
         </div>
       </div>
       <div class="row">
@@ -19,8 +19,8 @@
             </div>
             <div class="form-group">
               <label>Descripción</label>
-              <input type="text" class="form-control" id="desc" name="desc" ng-model="desc" ng-required="true" />
-              <div ng-show="!userForm.desc.$valid" class="alert alert-danger" role="alert">
+              <input type="text" class="form-control" id="desc" name="desc" ng-model="desc" ng-required="true" placeholder="Descripción"/>
+              <div ng-show="!userForm.desc.$valid && !userForm.desc.$pristine" class="alert alert-danger" role="alert">
                 Descripción obligatoria
               </div>
             </div>

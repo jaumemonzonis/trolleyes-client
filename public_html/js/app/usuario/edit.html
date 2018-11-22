@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-         <h3 class="text-center mb-3">Editar usuario</h3>
+         <h4 class="text-center mb-3"><i class="fas fa-user fa-1x"></i> Editar usuario</h4>
         </div>
       </div>
       <div class="row">
@@ -27,36 +27,36 @@
             </div>
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" ng-model="nombre" ng-required="true" />
-              <div ng-show="!userForm.nombre.$valid" class="alert alert-danger" role="alert">
+              <input type="text" class="form-control" id="nombreusuario" name="nombreusuario" ng-model="nombreusuario" ng-required="true" />
+              <div ng-show="!userForm.nombreusuario.$valid  && !userForm.nombreusuario.$pristine" class="alert alert-danger" role="alert">
                 Nombre obligatorio
               </div>
             </div>
             <div class="form-group">
               <label>Primer apellido</label>
               <input type="text" class="form-control" id="ape1" name="ape1" ng-model="ape1" ng-required="true" />
-              <div ng-show="!userForm.ape1.$valid" class="alert alert-danger" role="alert">
+              <div ng-show="!userForm.ape1.$valid && !userForm.ape1.$pristine" class="alert alert-danger" role="alert">
                 Primer apellido obligatorio
               </div>
             </div>
             <div class="form-group">
               <label>Segundo apellido</label>
               <input type="text" class="form-control" id="ape2" name="ape2" ng-model="ape2" ng-required="true" />
-              <div ng-show="!userForm.ape2.$valid" class="alert alert-danger" role="alert">
+              <div ng-show="!userForm.ape2.$valid && !userForm.ape2.$pristine" class="alert alert-danger" role="alert">
                 Segundo apellido obligatorio
               </div>
             </div>
             <div class="form-group">
               <label>Login</label>
               <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-required="true" />
-              <div ng-show="!userForm.login.$valid" class="alert alert-danger" role="alert">
+              <div ng-show="!userForm.login.$valid && !userForm.login.$pristine" class="alert alert-danger" role="alert">
                 Login obligatorio
               </div>
             </div>
             <div class="form-group">
               <label>Contraseña</label>
               <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
-                id="pass" name="pass" ng-model="pass" ng-minlength="3" ng-maxlength="10" ng-required="true"/>
+                id="pass" name="pass" ng-model="pass" ng-minlength="3" ng-maxlength="10" ng-required="true" placeholder="Contraseña"/>
               <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
                 La longitud de la constraseña es demasiado corta
               </div>

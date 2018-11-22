@@ -112,7 +112,7 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
             url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=get&id=' + $scope.id
         }).then(function (response) {
             $scope.status = response.status;
-            $scope.nombre = response.data.message.nombre;
+            $scope.nombre2 = response.data.message.nombre;
             $scope.ape1 = response.data.message.ape1;
         }, function (response) {
             $scope.status = response.status;
@@ -150,17 +150,6 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
 
         }
 
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-        });
 
     }
 ]);

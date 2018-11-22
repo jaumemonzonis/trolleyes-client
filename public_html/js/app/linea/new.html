@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-         <h3 class="text-center mb-3">Crear linea</h3>
+         <h4 class="text-center mb-3"><i class="fas fas fa-align-justify fa-1x"></i> Crear Linea </h4>
         </div>
       </div>
       <div class="row">
@@ -19,19 +19,19 @@
             </div>
              <div class="form-group">
               <label>Cantidad</label>
-              <input type="text" class="form-control" id="cantidad" name="cantidad" ng-model="cantidad" ng-required="true" />
-              <div ng-show="!userForm.cantidad.$valid" class="alert alert-danger" role="alert">
+              <input type="text" class="form-control" id="cantidad" name="cantidad" ng-model="cantidad" ng-required="true" placeholder="Cantidad"/>
+              <div ng-show="!userForm.cantidad.$valid && !userForm.cantidad.$pristine" class="alert alert-danger" role="alert">
                 Cantidad obligatoria
               </div>
             </div>
            
             <div class="form-group">
               <label>Producto</label>
-              <input type="text" class="form-control" id="obj_producto_id" name="obj_producto_id" ng-model="obj_producto_id"/>
+              <input type="text" class="form-control" id="obj_producto_id" name="obj_producto_id" ng-model="obj_producto_id" placeholder="Producto"/>
             </div>
                <div class="form-group">
               <label>Factura</label>
-              <input type="text" class="form-control" id="obj_factura_id" name="obj_factura_id" ng-model="obj_factura_id"/>
+              <input type="text" class="form-control" id="obj_factura_id" name="obj_factura_id" ng-model="obj_factura_id" placeholder="Factura"/>
             </div>
             <button ng-click="update()" type="button" class="btn btn-primary btn-block" ng-disabled="userForm.$invalid">Crear linea</button>
           </form>  

@@ -25,7 +25,7 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
       console.log(response);
       $scope.id = response.data.message.id;
       $scope.dni = response.data.message.dni;
-      $scope.nombre = response.data.message.nombre;
+      $scope.nombreusuario = response.data.message.nombre;
       $scope.ape1 = response.data.message.ape1;
       $scope.ape2 = response.data.message.ape2;
       $scope.login = response.data.message.login;
@@ -44,7 +44,7 @@ $scope.isActive = toolService.isActive;
       var json = {
         id: $scope.id,
         dni: $scope.dni,
-        nombre: $scope.nombre,
+        nombre: $scope.nombreusuario,
         ape1: $scope.ape1,
         ape2: $scope.ape2,
         login: $scope.login,
@@ -71,17 +71,6 @@ $scope.isActive = toolService.isActive;
             $window.history.back();
             }
             
-               $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-});
 
   }
 ]);

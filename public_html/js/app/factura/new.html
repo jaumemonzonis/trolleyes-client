@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-          <h3 class="text-center mb-3">Nuevo factura</h3>
+         <h4 class="text-center mb-3"><i class="fas far fa-file fa-1x"></i> Nueva factura</h4>
         </div>
       </div>
      <div class="row">
@@ -20,21 +20,21 @@
      
             <div class="form-group">
               <label>Fecha</label>
-              <input type="text" class="form-control" id="fecha" name="fecha" ng-model="fecha" ng-required="true" />
-              <div ng-show="!userForm.fecha.$valid" class="alert alert-danger" role="alert">
+              <input type="text" class="form-control" id="fecha" name="fecha" ng-model="fecha" ng-required="true" placeholder="Fecha" />
+              <div ng-show="!userForm.fecha.$valid && !userForm.fecha.$pristine" class="alert alert-danger" role="alert">
                 Fecha obligatoria
               </div>
             </div>
             <div class="form-group">
               <label>IVA</label>
-              <input type="text" class="form-control" id="iva" name="iva" ng-model="iva" ng-required="true" />
-              <div ng-show="!userForm.iva.$valid" class="alert alert-danger" role="alert">
+              <input type="text" class="form-control" id="iva" name="iva" ng-model="iva" ng-required="true" placeholder="IVA"/>
+              <div ng-show="!userForm.iva.$valid && !userForm.iva.$pristine" class="alert alert-danger" role="alert">
                IVA obligatorio
               </div>
             </div>
             <div class="form-group">
               <label>Usuario</label>
-                  <input type="text" class="form-control" id="obj_usuario_id" name="obj_usuario_id" ng-model="obj_usuario_id"/>
+                  <input type="text" class="form-control" id="obj_usuario_id" name="obj_usuario_id" ng-model="obj_usuario_id" placeholder="Usuario"/>
             </div>
             <button ng-click="update()" type="button" class="btn btn-primary btn-block" ng-disabled="userForm.$invalid">Crear nueva factura</button>
           </form> 

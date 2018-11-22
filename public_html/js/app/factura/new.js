@@ -9,7 +9,7 @@ moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location'
         }
         $scope.ob = "factura";
         $scope.id = null;
-        $scope.id_usuario = "320";
+        //$scope.id_usuario = "320";
 
         $scope.isActive = toolService.isActive;
 
@@ -20,7 +20,7 @@ moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location'
                 id: null,
                 fecha: $scope.fecha,
                 iva: $scope.iva,
-                id_usuario: 320
+                id_usuario: $scope.obj_usuario_id
             };
 
             $http({
@@ -42,17 +42,7 @@ moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location'
         $scope.volver = function () {
             $window.history.back();
         };
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-        });
+       
 
     }
 ]);

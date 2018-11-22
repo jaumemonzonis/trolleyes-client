@@ -2,7 +2,7 @@ moduleCommon.controller('homeController', ['$scope', '$location', 'toolService',
     function ($scope, $location, toolService, oSessionService) {
 
         $scope.validlog = true;
-        $scope.ruta = $location.path();
+        //$scope.ruta = $location.path();
         $scope.isActive = toolService.isActive;
 
         if (oSessionService.getUserName() !== "") {
