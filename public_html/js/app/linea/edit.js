@@ -31,10 +31,10 @@ moduleLinea.controller("lineaEditController", [
             $scope.id = response.data.message.id;
             $scope.cantidad = response.data.message.cantidad;
 
-            $scope.obj_producto_id = response.data.message.obj_producto_id;
-            $scope.obj_producto_desc = response.data.message.obj_producto_desc;
-            $scope.obj_factura_id = response.data.message.obj_factura_id;
-            $scope.obj_factura_desc = response.data.message.obj_factura_desc;
+            $scope.obj_producto_id = response.data.message.obj_Producto.id;
+            $scope.obj_producto_desc = response.data.message.obj_Producto.desc;
+            $scope.obj_factura_id = response.data.message.obj_Factura.id;
+            $scope.obj_factura_desc = response.data.message.obj_Factura.desc;
 
         }), function (response) {
             console.log(response);

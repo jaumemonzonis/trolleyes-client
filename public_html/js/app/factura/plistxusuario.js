@@ -15,7 +15,7 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
         }
 
         if (!$routeParams.id) {
-            $scope.id= 0;  
+            $scope.id= 1;  
         } else {
             $scope.id= $routeParams.id;
         }
@@ -101,6 +101,7 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
         }).then(function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message;
+            
         }, function (response) {
             $scope.status = response.status;
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';

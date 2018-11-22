@@ -11,6 +11,7 @@ moduleLinea.controller("lineaNewController", [
 
         $scope.ob = "linea";
         $scope.id = null;
+        
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
@@ -24,8 +25,8 @@ moduleLinea.controller("lineaNewController", [
             $scope.error = false;
             var json = {
                 cantidad: $scope.cantidad,
-                id_factura: 1,
-                id_producto: 2
+                id_factura: $scope.obj_factura_id,
+                id_producto:  $scope.obj_producto_id
             };
 
             $http({
@@ -47,16 +48,6 @@ moduleLinea.controller("lineaNewController", [
         $scope.volver = function () {
             $window.history.back();
         };
-        $http({
-            method: 'GET',
-            url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=check'
-        }).then(function (response) {
-            $scope.estado = response.data.status;
-            $scope.nombre = response.data.message["login"];
-
-        }, function (response) {
-            $scope.ajaxData = response.data.message || 'Request failed';
-            $scope.estado = response.status;
-        });
+        
     }
 ]);
