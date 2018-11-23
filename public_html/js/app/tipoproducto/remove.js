@@ -10,6 +10,9 @@ moduleTipoproducto.controller("tipoproductoRemoveController", [
     function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
 
         $scope.ob = "tipoproducto";
+            $scope.tabla = true;
+        $scope.msgopcioneliminar = true;
+        
         if (oSessionService.getUserName() !== "") {
             $scope.nombre = oSessionService.getUserName();
             $scope.validlog = true;
@@ -31,22 +34,33 @@ moduleTipoproducto.controller("tipoproductoRemoveController", [
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
 
-        $scope.visualizar = false;
-        $scope.error = false;
 
-        $scope.remove = function () {
-            $http({
-                method: "GET",
-                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
 
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
+       $scope.eliminar = function (accion) {
+            if (accion === "eliminar") {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
+                }).then(function (response) {
+                    $scope.eliminarok = true;
+                    $scope.msgopcioneliminar = false;
+                    $scope.eliminarerror = false;
+                    $scope.tabla = false;
+                    $scope.status = response.status;
+                    $scope.ajaxDatoTipousuario = response.data.message;
+                }, function (response) {
+                    $scope.ajaxDatoTipousuario = response.data.message || 'Request failed';
+                    $scope.status = response.status;
+                });
+            } else {
+                $scope.eliminarerror = true;
+                $scope.msgopcioneliminar = false;
+                $scope.eliminarok = false;
+                $scope.tabla = true;
             }
-        }
+
+        };
+
 
         $scope.volver = function () {
             $window.history.back();

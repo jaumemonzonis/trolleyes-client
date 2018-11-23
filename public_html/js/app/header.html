@@ -6,8 +6,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" ng-class="{'active': (isActive('/home') || isActive('/'))}">
-                <a class="nav-link" href="home"><i class="fas fa-home fa-1x"></i> Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item" ng-class="{'active': isActive('/home')}">
+                <a class="nav-link" href="home">Home <i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item" ng-class="{'active': isActive('/tipousuario/plist')}">
@@ -31,8 +31,8 @@
 
         </ul>
 
-   <i class="fas fa-user fa-1x mr-2" style="color:yellow"  ng-show="validlog"></i><div class="nombreusuario" ng-show="validlog">{{nombre}}</div>
-    <a href="usuario/login/" ng-show="!validlog" class="btn btn-info" role="button" >Login</a>
-    <a href="usuario/logout/" ng-show="validlog" class="btn btn-warning" role="button" >Logout</a>
-</div>
+        <i class="fas fa-user fa-1x mr-2" style="color:yellow"  ng-show="validlog"></i><div class="nombreusuario" ng-show="validlog">{{nombre}}</div>
+        <a href="usuario/login/" ng-show="!validlog" class="btn btn-info" role="button" >Login</a>
+        <a href="usuario/logout/" ng-show="validlog" class="btn btn-warning" role="button" >Logout</a>
+    </div>
 </nav>

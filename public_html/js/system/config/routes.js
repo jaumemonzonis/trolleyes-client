@@ -23,7 +23,9 @@ trolleyes.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/factura/new', {templateUrl: 'js/app/factura/new.html', controller: 'facturaNewController'});
         $routeProvider.when('/factura/edit/:id', {templateUrl: 'js/app/factura/edit.html', controller: 'facturaEditController'});
         $routeProvider.when('/factura/newxusuario/:id', {templateUrl: 'js/app/factura/newxusuario.html', controller: 'facturanewxusuarioController'});
-
+        
+        $routeProvider.when('/linea/plistxusuario/:rpp?/:page?/:id?/:order?', {templateUrl: 'js/app/linea/plistxusuario.html', controller: 'lineaplistxusuarioController'});
+        $routeProvider.when('/linea/newxusuario/:id', {templateUrl: 'js/app/linea/newxusuario.html', controller: 'lineanewxusuarioController'});
         
         
         $routeProvider.when('/tipoproducto/plist/:rpp?/:page?/:order?', {templateUrl: 'js/app/tipoproducto/plist.html', controller: 'tipoproductoPlistController'});

@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="row mt-5">
         <div class="col-3 mx-auto">
-          <h4 class="text-center mb-3"><i class="fas fas fa-align-justify fa-1x"></i> Borrar Linea </h4>
+          <h4 class="text-center mb-3"><i class="fas fa-trash-alt fa-1x"></i> Borrar Linea </h4>
         </div>
       </div>
       <div class="row">
@@ -29,22 +29,26 @@
                     </tr>
  
                 </table>
+                    </div>
+                    <div ng-show="msgopcioneliminar">
+                        <h6 style="text-align: center">¿Estas seguro de eliminar el registro?</h6>
+                        <button class="btn btn-primary btn-block" ng-click="eliminar('eliminar')">Si</button>
+                        <button class="btn btn-danger btn-block" ng-click="eliminar('noeliminar')">No</button>
+                    </div>
+
+                    <div class="alert alert-success btn-block" style="margin-top: 20px;" ng-show="eliminarok">
+                         <p>Registro eliminado</p>
+                    </div>
+
+                    <div class="alert alert-danger btn-block" style="margin-top: 20px;" ng-show="eliminarerror">
+                        Registro no eliminado
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" ng-click="volver()">Volver</button>
+
+
+                </div>
             </div>
-            <div class="alert alert-success" role="alert" ng-show="(visualizar)">
-                Linea borrada correctamente.
-            </div>
-               <div class="alert alert-danger" role="alert" ng-show="(error)">
-                Error al borrar la linea.
-            </div>
-            <div class="button_edit">
-                <button type="button" class="btn btn-primary btn-block" ng-click="remove()" ng-show="(!visualizar)">Eliminar</button>
-               
-            </div>
-   
         </div>
-             <button type="button" class="btn btn-primary btn-block" ng-click="volver()">Volver</button>
-      </div>
     </div>
-  </div>
 </div>
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

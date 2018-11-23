@@ -6,7 +6,7 @@ moduleUsuario.controller('usuarioLoginController', ['$scope', '$http', 'toolServ
 
         $scope.validlog = false;
         $scope.faillog = false;
-//        $scope.pass=forge_sha256($scope.pass);
+    
 
         $scope.log = function () {
            
@@ -16,7 +16,7 @@ moduleUsuario.controller('usuarioLoginController', ['$scope', '$http', 'toolServ
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + $scope.login + '&pass=' + $scope.pass,
+                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + $scope.login + '&pass=' + forge_sha256($scope.pass)
 
             }).then(function (response) {
                 console.log(response);
