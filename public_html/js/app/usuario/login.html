@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-4 mx-auto">
 
-    <form name="userForm" class="mx-auto p-5" style="margin-top:150px; margin-bottom: 100px; background-color: azure; width: 70%; border-radius: 2%"> 
+    <form name="userForm" ng-show="!logged" class="mx-auto p-5" style="margin-top:150px; margin-bottom: 10px; background-color: azure; width: 70%; border-radius: 2%"> 
         <h3 class="pb-3"><i class="fas fa-user fa-1x"></i>    Login</h3>
 
         <div class="form-group row"> 
@@ -16,15 +16,17 @@
             <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
                    id="pass" name="pass" ng-model="pass" ng-required="true" placeholder="Contraseña"/>
         </div>
-        <button ng-click="log()" class="btn btn-primary">Login</button>
+        <button ng-click="logging()" class="btn btn-primary">Login</button>
         </form>
-          <div class="alert alert-danger" role="alert" ng-show="failog">
+          <div class="alert alert-danger" role="alert" ng-show="failedlogin">
                 Error al logear.
             </div>
 
-    
-</div>
-        </div>
+     
+</div> 
+    </div>
+      
+         
 </main>
 
 <footer class="footer" ng-include="'js/app/footer.html'"></footer>

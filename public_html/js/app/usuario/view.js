@@ -11,11 +11,11 @@ moduleUsuario.controller('usuarioViewController', ['$scope', '$http', '$location
             $scope.id = $routeParams.id;
         }
         
-           if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+       if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
-        
 
         $http({
             method: 'GET',

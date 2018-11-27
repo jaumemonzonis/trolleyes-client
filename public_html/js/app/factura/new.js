@@ -3,9 +3,10 @@
 
 moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window', 'sessionService',
     function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+      if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
         $scope.ob = "factura";
         $scope.id = null;
@@ -18,7 +19,7 @@ moduleFactura.controller('facturaNewController', ['$scope', '$http', '$location'
             $scope.error = false;
             var json = {
                 id: null,
-                fecha: $scope.fecha,
+                 fecha: $scope.myDate,
                 iva: $scope.iva,
                 id_usuario: $scope.obj_usuario_id
             };

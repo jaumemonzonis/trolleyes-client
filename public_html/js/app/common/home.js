@@ -1,24 +1,14 @@
-moduleCommon.controller('homeController', ['$scope', '$location', 'toolService', 'sessionService',
-    function ($scope, $location, toolService, oSessionService) {
+'use strict'
 
-        $scope.validlog = true;
-        //$scope.ruta = $location.path();
+moduleCommon.controller('homeController', ['$scope', '$location', 'toolService', 'sessionService','$location',
+    function ($scope, $location, toolService, oSessionService) {
+        $scope.logged = false;
+        $scope.ruta = $location.path();
         $scope.isActive = toolService.isActive;
 
         if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
-        } else {
-          $location.url('/usuario/login');  
-            
-        }
-        
-        $scope.logout = function () {
-            $http({
-                method: 'GET',
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=logout'
-            }).then(function () {
-                $location.url('/');
-            });
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
     }]);

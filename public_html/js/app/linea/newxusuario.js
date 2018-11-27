@@ -1,36 +1,44 @@
 "use strict";
 
 
-moduleUsuario.controller('usuarioNewController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService, $window) {
-
-        $scope.ob = "usuario";
-        $scope.id = null;
-      
-        $scope.id_tipoUsuario = 2;
-
-    if (oSessionService.getUserName() !== "") {
+moduleLinea.controller('lineanewxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window', 'sessionService',
+    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
+      if (oSessionService.getUserName() !== "") {
             $scope.loggeduser = oSessionService.getUserName();
             $scope.loggeduserid = oSessionService.getId();
             $scope.logged = true;
         }
-
-
+        
+        if (!$routeParams.id) {
+            $scope.id_factura= 0;  
+        } else {
+            $scope.id_factura= $routeParams.id;
+        }
+        
+        $scope.ob = "linea";
+        $scope.id = null;
 
         $scope.isActive = toolService.isActive;
+        
+          $http({
+            method: 'GET',
+            url: 'http://localhost:8081/trolleyes/json?ob=factura&op=get&id=' + $scope.id_factura
+        }).then(function (response) {
+            $scope.status = response.status;
+            $scope.idfactura = response.data.message.id;
+          
+        }, function (response) {
+            $scope.status = response.status;
+            
+        });
 
         $scope.update = function () {
             $scope.visualizar = false;
             $scope.error = false;
             var json = {
-                id: null,
-                dni: $scope.dni,
-                nombre: $scope.nombreusuario,
-                ape1: $scope.ape1,
-                ape2: $scope.ape2,
-                login: $scope.login,
-                pass: forge_sha256($scope.pass),
-                id_tipoUsuario: 2
+               cantidad: $scope.cantidad,
+               id_factura: $scope.id_factura,
+               id_producto:  $scope.obj_producto_id
             };
 
             $http({

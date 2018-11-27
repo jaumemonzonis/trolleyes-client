@@ -6,9 +6,10 @@ moduleTipousuario.controller('tipousuarioNewController', ['$scope', '$http', '$l
         $scope.ob = "tipousuario";
         $scope.id = null;
         
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+     if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
         $scope.isActive = toolService.isActive;
 

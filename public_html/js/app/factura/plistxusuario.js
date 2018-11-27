@@ -9,9 +9,10 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
         $scope.totalPages = 1;
         
         
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+       if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.id) {
@@ -44,10 +45,12 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
                 $scope.page = 1;
             }
         }
-
+        $scope.linea = function (id) {
+            $location.url(`linea/plistxusuario/10/1/${id}`);
+        }
 
         $scope.resetOrder = function () {
-            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url($scope.ob + `/plistxusuario/` + $scope.rpp + `/` + $scope.page + `/` + $scope.id);
         }
 
         $scope.view = function (id) {
@@ -70,7 +73,7 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url($scope.ob + `/plistxusuario/` + $scope.rpp + `/` + $scope.page + `/` + $scope.id + `/` + $scope.orderURLCliente);
         }
 
         //getcount
@@ -120,7 +123,7 @@ moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '
         });
 
         $scope.update = function () {
-            $location.url($scope.ob + `/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+             $location.url($scope.ob + `/plistxusuario/` + $scope.rpp + `/` + $scope.page + `/` + $scope.id + `/` + $scope.orderURLCliente);
         }
 
 

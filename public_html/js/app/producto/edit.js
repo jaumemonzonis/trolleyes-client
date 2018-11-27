@@ -10,9 +10,10 @@ moduleProducto.controller("productoEditController", [
     function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
 
         $scope.ob = "producto";
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+  if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
 

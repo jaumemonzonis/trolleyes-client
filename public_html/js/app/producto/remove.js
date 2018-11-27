@@ -4,9 +4,13 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
     function ($scope, $http, $routeParams, $window, oSessionService) {
 
         $scope.ob = "producto";
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+            $scope.tabla = true;
+        $scope.msgopcioneliminar = true;
+        
+     if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.id) {
@@ -26,22 +30,32 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
             $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
         });
 
-        $scope.visualizar = false;
-        $scope.error = false;
 
-        $scope.remove = function () {
-            $http({
-                method: "GET",
-                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
-
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
+       $scope.eliminar = function (accion) {
+            if (accion === "eliminar") {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=remove&id=' + $scope.id
+                }).then(function (response) {
+                    $scope.eliminarok = true;
+                    $scope.msgopcioneliminar = false;
+                    $scope.eliminarerror = false;
+                    $scope.tabla = false;
+                    $scope.status = response.status;
+                    $scope.ajaxDatoTipousuario = response.data.message;
+                }, function (response) {
+                    $scope.ajaxDatoTipousuario = response.data.message || 'Request failed';
+                    $scope.status = response.status;
+                });
+            } else {
+                $scope.eliminarerror = true;
+                $scope.msgopcioneliminar = false;
+                $scope.eliminarok = false;
+                $scope.tabla = true;
             }
-        }
+
+        };
+
 
         $scope.volver = function () {
             $window.history.back();

@@ -1,42 +1,50 @@
-'use strict'
+"use strict";
 
-moduleUsuario.controller('usuarioLoginController', ['$scope', '$http', 'toolService', '$location', "sessionService",
-    function ($scope, $http, toolService, $location, oSessionService) {
+moduleUsuario.controller("usuarioLoginController", [
+    "$scope",
+    "$http",
+    "$routeParams",
+    "toolService",
+    "sessionService",
+    "$window",
+    function ($scope, $http, $routeParams, toolService, oSessionService, $location, $window) {
+        $scope.logged = false;
+        $scope.failedlogin = false;
+        $scope.logging = function () {
+
+            var login = $scope.login;
+            var pass = forge_sha256($scope.pass);
 
 
-        $scope.validlog = false;
-        $scope.faillog = false;
-//        $scope.pass=forge_sha256($scope.pass);
-
-        $scope.log = function () {
-           
             $http({
-              
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + $scope.login + '&pass=' + $scope.pass,
-
-            }).then(function (response) {
-                console.log(response);
-                $scope.status = response.data.status;
+                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + login + '&pass=' + pass
+            }).then(function (response, data) {
                 if (response.data.status == 401) {
-                     $scope.faillog = true;
+                    $scope.failedlogin = true;
                 } else {
-                    $location.path('/home');
-                    $scope.validlog = true;
-                    oSessionService.setUserName(response.data.message.login);
-                    $scope.nombre = oSessionService.getUserName();
-
+                    $scope.logged = true;
+                    $scope.failedlogin = false;
+                    oSessionService.setSessionActive();
+                    oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                    $scope.loggeduser = oSessionService.getUserName();
+                    home();
                 }
-            }), function (response) {
-                console.log(response);
-                $scope.validlog = false;
 
-            }
+            }, function (response) {
+
+            });
         }
 
+        function home() {
+            $location.url(`/home`);
+        }
+
+
+
         $scope.isActive = toolService.isActive;
-    }]
-        );
+    }
+]);

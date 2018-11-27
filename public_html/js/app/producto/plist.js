@@ -5,9 +5,10 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
     function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
         $scope.ob = "producto";
         $scope.totalPages = 1;
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+     if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.order) {

@@ -5,9 +5,10 @@ moduleTipousuario.controller('tipousuarioPlistController', ['$scope', '$http', '
 
         $scope.ob = "tipousuario";
         $scope.totalPages = 1;
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+    if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.order) {

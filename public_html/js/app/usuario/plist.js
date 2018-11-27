@@ -6,12 +6,14 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         $scope.ob="usuario";
         $scope.totalPages = 1;
 
-           if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+   if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
-
+        $scope.isActive = toolService.isActive;
+        
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";

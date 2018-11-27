@@ -4,5 +4,4 @@ Options FollowSymLinks
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^ - [L]
-  RewriteRule ^ /trolleyes-client/index.html
-
+  RewriteRule ^ /trolleyes-client/public_html/index.html

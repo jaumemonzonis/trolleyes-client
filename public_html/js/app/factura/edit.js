@@ -11,8 +11,9 @@ moduleFactura.controller("facturaEditController", [
 
         $scope.ob = "factura";
         if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.id) {
@@ -27,7 +28,7 @@ moduleFactura.controller("facturaEditController", [
         }).then(function (response) {
             console.log(response);
             $scope.id = response.data.message.id;
-            $scope.fecha = response.data.message.fecha;
+            $scope.myDate = new Date(response.data.message.fecha);
             $scope.iva = response.data.message.iva;
             $scope.obj_usuario_id = response.data.message.obj_usuario.id;
             $scope.obj_usuario_nombre = response.data.message.obj_usuario.nombre;
@@ -44,7 +45,7 @@ moduleFactura.controller("facturaEditController", [
             $scope.error = false;
             var json = {
                 id: $scope.id,
-                fecha: $scope.fecha,
+                fecha: $scope.myDate,
                 iva: $scope.iva,
                 id_usuario: $scope.obj_usuario_id
 
@@ -69,7 +70,7 @@ moduleFactura.controller("facturaEditController", [
             $window.history.back();
         }
 
-       
+
 
     }
 ]);

@@ -11,9 +11,10 @@ moduleTipousuario.controller("tipousuarioEditController", [
 
         $scope.ob = "tipousuario";
         
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+    if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
 
         if (!$routeParams.id) {

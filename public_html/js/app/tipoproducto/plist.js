@@ -13,9 +13,10 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             $scope.orderURLServidor = "&order=" + $routeParams.order;
             $scope.orderURLCliente = $routeParams.order;
         }
-        if (oSessionService.getUserName() !== "") {
-            $scope.nombre = oSessionService.getUserName();
-            $scope.validlog = true;
+    if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
         }
         if (!$routeParams.rpp) {
             $scope.rpp = 10;
