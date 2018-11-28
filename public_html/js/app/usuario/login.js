@@ -8,8 +8,15 @@ moduleUsuario.controller("usuarioLoginController", [
     "sessionService",
     "$window",
     function ($scope, $http, $routeParams, toolService, oSessionService, $location, $window) {
+
+
+        $scope.volver = function () {
+            $window.history.back();
+        }
+        
         $scope.logged = false;
         $scope.failedlogin = false;
+
         $scope.logging = function () {
 
             var login = $scope.login;
@@ -31,7 +38,7 @@ moduleUsuario.controller("usuarioLoginController", [
                     oSessionService.setSessionActive();
                     oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
                     $scope.loggeduser = oSessionService.getUserName();
-                    home();
+
                 }
 
             }, function (response) {
@@ -39,12 +46,11 @@ moduleUsuario.controller("usuarioLoginController", [
             });
         }
 
-        function home() {
-            $location.url(`/home`);
-        }
 
 
 
         $scope.isActive = toolService.isActive;
+
+
     }
 ]);
