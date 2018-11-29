@@ -30,7 +30,7 @@ moduleUsuario.controller("usuarioLoginController", [
                 },
                 url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + login + '&pass=' + pass
             }).then(function (response, data) {
-                if (response.data.status == 401) {
+                if (response.data.message.id == 0) {
                     $scope.failedlogin = true;
                 } else {
                     $scope.logged = true;

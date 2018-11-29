@@ -5,39 +5,40 @@ moduleProducto.controller("productoEditController", [
     "$http",
     "$routeParams",
     "toolService",
-    "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, oSessionService) {
 
-        $scope.ob = "producto";
-  if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+        $scope.edited = true;
+        $scope.logged = false;
 
-
-        if (!$routeParams.id) {
+       if (!$routeParams.id) {
             $scope.id = 1;
         } else {
             $scope.id = $routeParams.id;
-        }
+} 
+
+        $scope.mostrar = false;
+        $scope.activar = true;
+        $scope.ajaxData = "";
+
+  
 
         $http({
             method: "GET",
-            url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
+            url: 'http://localhost:8081/trolleyes/json?ob=producto&op=get&id=' + $scope.id
         }).then(function (response) {
             console.log(response);
-            $scope.status = response.status;
+//            $scope.status = response.status;
             $scope.id = response.data.message.id;
             $scope.codigo = response.data.message.codigo;
             $scope.desc = response.data.message.desc;
             $scope.existencias = response.data.message.existencias;
             $scope.precio = response.data.message.precio;
             $scope.foto = response.data.message.foto;
-
-            $scope.obj_tipoProducto_id = response.data.message.obj_tipoProducto.id;
-            $scope.obj_tipoProducto_desc = response.data.message.obj_tipoProducto.desc;
+            $scope.obj_tipoProducto = {
+                id: response.data.message.obj_tipoProducto.id,
+                desc: response.data.message.obj_tipoProducto.desc
+            }
 
         }), function (response) {
             console.log(response);
@@ -46,8 +47,7 @@ moduleProducto.controller("productoEditController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-            $scope.visualizar = false;
-            $scope.error = false;
+          
             var json = {
                 id: $scope.id,
                 codigo: $scope.codigo,
@@ -55,27 +55,56 @@ moduleProducto.controller("productoEditController", [
                 existencias: $scope.existencias,
                 precio: $scope.precio,
                 foto: $scope.foto,
-                id_tipoProducto: $scope.obj_tipoProducto_id
+                id_tipoProducto: $scope.obj_tipoProducto.id
             }
+            
             $http({
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=update',
+                url: 'http://localhost:8081/trolleyes/json?ob=producto&op=update',
                 params: {json: JSON.stringify(json)}
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
-            }
+            }).then(function () {
+                $scope.edited = false;
+            })
         }
 
-        $scope.volver = function () {
-            $window.history.back();
+        $scope.tipoProductoRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=tipoproducto&op=get&id=' + $scope.obj_tipoProducto.id
+                }).then(function (response) {
+                    $scope.obj_tipoProducto = response.data.message;
+                    form.userForm.obj_tipoProducto.$setValidity('valid', true);
+                }, function (response) {
+                    //$scope.status = response.status;
+                    form.userForm.obj_tipoProducto.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_tipoProducto.$setValidity('valid', true);
+            }
         }
-       
+        
+        $scope.back = function () {
+            window.history.back();
+        };
+        $scope.close = function () {
+            $location.path('/home');
+        };
+        $scope.plist = function () {
+            $location.path('/'+$scope.ob+'/plist');
+        };
+
+
+        if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
+        }
+
+
     }
 ]);
