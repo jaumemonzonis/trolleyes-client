@@ -4,6 +4,7 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
     function ($scope, $http, $location, toolService, $routeParams, oSessionService, $window) {
 
        
+
         $scope.alert = false;
 
         $http({

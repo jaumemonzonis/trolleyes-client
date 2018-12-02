@@ -5,6 +5,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
         $scope.totalPages = 1;
         $scope.conectado = false; 
+
         
 
         
