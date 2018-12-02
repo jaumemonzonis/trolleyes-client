@@ -11,6 +11,7 @@ var trolleyes = angular.module('MyApp', [
     'facturaControllers',
     'productoControllers',
     'lineaControllers',
+    'carritoControllers',
     'ngMaterial'
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.
@@ -47,3 +48,4 @@ var moduleProducto = angular.module ('productoControllers',[]);
 var moduleFactura = angular.module ('facturaControllers',[]);
 var moduleTipoproducto = angular.module('tipoproductoControllers',[]);
 var moduleLinea = angular.module('lineaControllers',[]);
+var moduleCarrito = angular.module('carritoControllers',[]);
