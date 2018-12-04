@@ -23,7 +23,7 @@ moduleUsuario.controller("usuarioLoginController", [
             var pass = forge_sha256($scope.pass);
 
 
-            $http({
+ $http({
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -38,6 +38,7 @@ moduleUsuario.controller("usuarioLoginController", [
                     oSessionService.setSessionActive();
                     oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
                     $scope.loggeduser = oSessionService.getUserName();
+                    $scope.loggeduserid = oSessionService.setId(response.data.message.id);
 
                 }
 
@@ -45,6 +46,9 @@ moduleUsuario.controller("usuarioLoginController", [
 
             });
         }
+
+
+
 
 
 

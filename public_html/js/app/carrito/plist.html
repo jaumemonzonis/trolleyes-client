@@ -8,7 +8,7 @@
                     <button type="button" class="btn btn-light" ng-click="resetOrder()">
                                 <i class="fa fa-sync"></i>
                             </button>
-                   <a href="carrito/carrito" class="btn btn-light fas fa-shopping-cart" role="button"></a>
+                   <a href="carrito/carrito" class="btn btn-light fas fa-shopping-cart" role="button" ng-if="ajaxDataAdd!=='Carrito vacio'"></a>
                     
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0">
@@ -113,7 +113,13 @@
                            <a href="producto/view/{{fila.id}}" class="btn btn-light fas fa-eye" role="button"></a>
                            <button type="button" ng-click="add(fila.id)" class="btn btn-light fas fa-plus"></button>
                            <button type="button" ng-click="reduce(fila.id)" class="btn btn-light fas fa-minus"></button>
-                           <button type="button" class="btn btn-light icon" ng-click="carrito()" ng-disabled="cantidad===0">{{fila.cantidad}}</button>
+                            <span>{{existencias(fila.id)}}</span>
+                            
+                            
+                              <div class="alert alert-success" role="alert" ng-show="(stock)">
+                                  
+                                  
+                                  
                         </td>
                     </tr>
                 </table>

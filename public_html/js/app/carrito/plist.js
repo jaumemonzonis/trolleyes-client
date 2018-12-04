@@ -6,7 +6,11 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
         $scope.totalPages = 1;
         $scope.conectado = false; 
 
-        
+          if (oSessionService.getUserName() !== "") {
+            $scope.loggeduser = oSessionService.getUserName();
+            $scope.loggeduserid = oSessionService.getId();
+            $scope.logged = true;
+        }
 
         
         $http({
@@ -58,6 +62,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
             }
         }
         
+        $scope.stock=false;  
         $scope.add = function (id) {            
             
             $http({
@@ -65,6 +70,11 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=add&prod='+id
             }).then(function (response) {
                 $scope.status = response.status;
+                
+                if ($scope.status==400){
+                    
+                   $scope.stock=true;  
+                }
                 $scope.ajaxDataAdd = response.data.message; 
        show();
             }, function (response) {
@@ -90,7 +100,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
 
         $scope.resetOrder = function () {
-            $location.url(`carrito/plist/` + $scope.rpp + `/` + $scope.page);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page);
         }
 
 
@@ -102,7 +112,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 $scope.orderURLServidor = $scope.orderURLServidor + "-" + order + "," + align;
                 $scope.orderURLCliente = $scope.orderURLCliente + "-" + order + "," + align;
             }
-            $location.url(`carrito/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
+            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         }
         
         //getcount
@@ -164,15 +174,12 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
             }
         }
 
-       if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
 
         $scope.isActive = toolService.isActive;
 
-        $scope.existencias = function (idProd) {
+
+
+ $scope.existencias = function (idProd) {
             var arrayLength= $scope.ajaxDataAdd.length;
             for (var i=0; i < arrayLength; i++){
             if ($scope.ajaxDataAdd !== null && $scope.ajaxDataAdd !== "Carrito vacio") {
@@ -181,9 +188,11 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 }
             }
         }
-        return 0;
+return 0;
         
     }
+
+
 
     }
 

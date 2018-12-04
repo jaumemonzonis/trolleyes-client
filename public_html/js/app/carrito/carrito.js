@@ -1,11 +1,14 @@
 'use strict'
 
-moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',"$window",
+moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', "$window",
     function ($scope, $http, $location, toolService, $routeParams, oSessionService, $window) {
 
-       
+
 
         $scope.alert = false;
+        $scope.factura = false;
+
+
 
         $http({
             method: 'GET',
@@ -20,15 +23,15 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
 
 
         function show() {
-            
+
             $http({
                 method: 'GET',
                 url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=show'
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message;
-            
-                
+
+
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message || 'Request failed';
@@ -46,7 +49,7 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
                 $scope.status = response.status;
                 $scope.ajaxDataAdd = response.data.message;
                 show();
-             
+
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataAdd = response.data.message || 'Request failed';
@@ -67,8 +70,8 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
                 $scope.ajaxDataReduce = response.data.message || 'Request failed';
             });
         };
-    
-     
+
+
         $scope.empty = function () {
             $http({
                 method: 'GET',
@@ -76,14 +79,32 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataEmpty = response.data.message;
-               
-                 show();
-                 $scope.alert = true;
+
+                show();
+                $scope.alert = true;
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataEmpty = response.data.message || 'Request failed';
             });
-            
+
+        };
+
+        $scope.buy = function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=buy'
+            }).then(function (response) {
+                $scope.status = response.status;
+                $scope.msg_factura = response.data.message;
+                $scope.factura = true;
+                 $scope.facturaOK = "ok";
+                //show();
+            }, function (response) {
+                $scope.status = response.status;
+                $scope.msg_factura = response.data.message || 'Request failed';
+
+            });
+
         };
 
 
@@ -95,7 +116,7 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
 
         $scope.isActive = toolService.isActive;
 
-    $scope.volver = function () {
+        $scope.volver = function () {
             $window.history.back();
         }
 
