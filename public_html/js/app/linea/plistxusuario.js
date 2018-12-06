@@ -31,7 +31,7 @@ moduleLinea.controller('lineaplistxusuarioController', ['$scope', '$http', '$loc
         }
 
         if (!$routeParams.rpp) {
-            $scope.rpp = 10;
+            $scope.rpp = "10";
         } else {
             $scope.rpp = $routeParams.rpp;
         }

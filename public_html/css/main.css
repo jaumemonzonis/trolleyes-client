@@ -56,3 +56,59 @@ th {
     color:red;
     
 }
+.caja {
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+.carrito{
+    background-color: #f5f5ef;
+    border: 5px;
+    border-color: #d8d8c0;
+    height: 200px;
+    width: 300px;
+    display: grid; 
+  margin: 0 auto;
+   grid-gap: 20px;
+    padding: 10px;
+  grid-template-columns: auto;
+  grid-template-rows: 50% 10% 40%;
+  grid-gap: 20px;
+  grid-template-areas: "arriba"
+                       "centro"
+                       "abajo";
+}
+
+.contenido {
+     background-color: #f5f5ef;
+  
+    height: 200px;
+    width: 250px;
+    display: grid; 
+  margin: 20px;
+   grid-gap: 20px;
+    padding: 10px;
+  grid-template-columns: 100%;
+  grid-template-rows: 55% 5% 40%;
+
+  grid-template-areas: "arriba"
+                       "centro"
+                       "abajo";
+}  
+    
+
+
+
+.centro {
+    font-size: 12px;
+     font-weight: bold;
+    grid-area: centro;
+    text-align: center;
+}
+.arriba {
+    grid-area: arriba;
+}
+.abajo {
+    margin-left: 20%;
+    grid-area: abajo;
+}

@@ -10,6 +10,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             $scope.loggeduser = oSessionService.getUserName();
             $scope.loggeduserid = oSessionService.getId();
             $scope.logged = true;
+ 
         }
 
         $scope.isActive = toolService.isActive;
@@ -23,7 +24,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
         }
 
         if (!$routeParams.rpp) {
-            $scope.rpp = 10;
+            $scope.rpp = "10";
         } else {
             $scope.rpp = $routeParams.rpp;
         }

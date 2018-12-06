@@ -45,11 +45,11 @@
                         </div>
                         <div class="form-group">
                             <label>Login</label>
-                            <input type="text" class="form-control" id="login" name="login" ng-model="login" ng-minlength="4" ng-required="true"  placeholder="Login"/>
-                            <div ng-show="userForm.login.$error.minlength" class="alert alert-danger" role="alert">
+                            <input type="text" class="form-control" id="login2" name="login2" ng-model="login2" ng-minlength="4" ng-required="true"  placeholder="Login"/>
+                            <div ng-show="userForm.login2.$error.minlength" class="alert alert-danger" role="alert">
                                 La longitud del login es demasiado corta
                             </div>
-                            <div ng-show="!userForm.login.$valid  && !userForm.login.$pristine" class="alert alert-danger" role="alert">
+                            <div ng-show="!userForm.login2.$valid  && !userForm.login2.$pristine" class="alert alert-danger" role="alert">
                                 Login obligatorio
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                            maxlength="2" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <a href="/trolleyes-client/tipousuario/view/{{obj_tipoUsuario.id}}">
+                                            <a href="/trolleyes-client/public_html/tipousuario/view/{{obj_tipoUsuario.id}}">
                                                 <span class="p-2 bd-highlight"><i class="fas fa-users fa-1x"></i></span>
                                                 Tipo de usuario: {{obj_tipoUsuario.desc}}
                                             </a>

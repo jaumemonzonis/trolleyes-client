@@ -5,10 +5,8 @@
             <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Productos disponibles</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <button type="button" class="btn btn-light" ng-click="resetOrder()">
-                                <i class="fa fa-sync"></i>
-                            </button>
-                   <a href="carrito/carrito" class="btn btn-light fas fa-shopping-cart" role="button"></a>
+        
+                   <a href="carrito/carrito" class="btn btn-light fas fa-shopping-cart" role="button" ng-if="ajaxDataAdd!='Carrito vacio'"></a>
                     
                 </div>
                 <div class="btn-toolbar mb-2 mb-md-0">
@@ -31,93 +29,45 @@
                 <nav aria-label="paginacion">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" ng-show="page > 2" href="producto/plist/{{rpp}}/1/{{order}}/{{align}}">First</a>
+                            <a class="page-link" ng-show="page > 2" href="carrito/plist/{{rpp}}/1/{{order}}/{{align}}">First</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" ng-show="page > 1" href="producto/plist/{{rpp}}/{{page - 1}}/{{order}}/{{align}}">Previous</a>
+                            <a class="page-link" ng-show="page > 1" href="carrito/plist/{{rpp}}/{{page - 1}}/{{order}}/{{align}}">Previous</a>
                         </li>
                         <li class="page-item" ng-class="{'active':(p == page), 'disabled': p === '...'}" ng-repeat="p in list2 track by $index">
-                            <a class="page-link" href="producto/plist/{{rpp}}/{{p}}/{{order}}/{{align}}">{{p}}</a>
+                            <a class="page-link" href="carrito/plist/{{rpp}}/{{p}}/{{order}}/{{align}}">{{p}}</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" ng-show="page != totalPages" href="producto/plist/{{rpp}}/{{page--1}}/{{order}}/{{align}}">Next</a>
+                            <a class="page-link" ng-show="page != totalPages" href="carrito/plist/{{rpp}}/{{page--1}}/{{order}}/{{align}}">Next</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="producto/plist/{{rpp}}/{{totalPages}}/{{order}}/{{align}}">Last</a>
+                            <a class="page-link" ng-show="page != totalPages - 1 && page != totalPages" href="carrito/plist/{{rpp}}/{{totalPages}}/{{order}}/{{align}}">Last</a>
                         </li>
                     </ul>
                 </nav>
             </div>
           
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <tr>
-                        
-                        <th>
-                            Descripción
-                            <button type="button" class="btn btn-light" ng-click="ordena('desc', 'asc')">
-                                <a class="fas fa-long-arrow-alt-up" ></a>
-
-                            </button>
-                            <button type="button" class="btn btn-light" ng-click="ordena('desc', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </th>
-                        <th>
-                            Existencias
-                            <button type="button" class="btn btn-light" ng-click="ordena('existencias', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light" ng-click="ordena('existencias', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </th>
-                        <th>
-                            Precio
-                            <button type="button" class="btn btn-light" ng-click="ordena('precio', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light" ng-click="ordena('precio', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </th>
-                        <th>
-                            Foto
-                            <button type="button" class="btn btn-light" ng-click="ordena('foto', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light" ng-click="ordena('foto', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </th>
-                        <th>
-                            Tipo de producto
-                            <button type="button" class="btn btn-light" ng-click="ordena('id_tipoProducto', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
-                            </button>
-                            <button type="button" class="btn btn-light" ng-click="ordena('id_tipoProducto', 'desc')">
-                                <i class="fas fa-long-arrow-alt-down"></i>
-                            </button>
-                        </th>
-                        <th>
-                            Operaciones
-                        </th>
-                    </tr>
-                    <tr ng-repeat="fila in ajaxData">
-                        <td>{{fila.desc}}</td>
-                        <td>{{fila.existencias}}</td>
-                        <td>{{fila.precio}}</td>
-                        <td>{{fila.foto}}</td>
-                    <td><a href="./tipoproducto/view/{{fila.obj_tipoProducto.id}}" >{{fila.obj_tipoProducto.desc}}</a></td>
-                        <td>
-                           <a href="producto/view/{{fila.id}}" class="btn btn-light fas fa-eye" role="button"></a>
+      
+          
+            <div class="row d-flex justify-content-center flex-wrap align-items-center ml-5">
+    <div ng-repeat="fila in ajaxData" class="contenido border border-secundary rounded">
+            <div class="arriba"><img src="https://www.dickson-constant.com/medias/images/catalogue/api/m654-grey-680.jpg" class="img-fluid img-thumbnail" style="width: 97%; height: 100%; margin-top: 3%;" alt="producto 1"></div>
+            <div class="centro">{{fila.desc}}</div>
+            <div class="abajo">
+            <a href="producto/view/{{fila.id}}" class="btn btn-light fas fa-eye" role="button"></a>
                            <button type="button" ng-click="add(fila.id)" class="btn btn-light fas fa-plus"></button>
                            <button type="button" ng-click="reduce(fila.id)" class="btn btn-light fas fa-minus"></button>
-                           <button type="button" class="btn btn-light icon" ng-click="carrito()" ng-disabled="cantidad===0">{{fila.cantidad}}</button>
-                        </td>
-                    </tr>
-                </table>
+                            <span>{{existencias(fila.id)}}</span>
             </div>
+       
+    </div>
+</div>
+            
+            
+            
+            
+            
+            
         </main>
         
     </div>

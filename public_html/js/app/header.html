@@ -10,7 +10,7 @@
                 <a class="nav-link" href="home">Home <i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
             </li>
 
-            <li class="nav-item" ng-class="{'active': isActive('/tipousuario/plist')}">
+            <li class="nav-item" ng-class="{'active': isActive('/tipousuario/plist')}" ng-show="loggeduserid==1">
                 <a class="nav-link" href="tipousuario/plist"><i class="fas fas fa-users fa-1x"></i> Tipo Usuario</a>
             </li>
             <li class="nav-item" ng-class="{'active': isActive('/usuario/plist')}">
@@ -41,8 +41,10 @@
                        <i class="fas fa-user"> </i> {{loggeduser}}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="/trolleyes-client/usuario/view/{{loggeduserid}}"><i class="fas fa-user"> </i> Perfil</a>
-                        <a class="dropdown-item" href="/trolleyes-client/usuario/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a class="dropdown-item" href="/trolleyes-client/public_html/usuario/view/{{loggeduserid}}"><i class="fas fa-user"> </i> Perfil</a>
+                        <a class="dropdown-item" href="/trolleyes-client/public_html/usuario/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a class="dropdown-item" href="/trolleyes-client/public_html/usuario/editpass/{{loggeduserid}}"><i class="fas fa-key"></i> Cambiar contraseña</a>
+                         <a class="dropdown-item" href="/trolleyes-client/public_html/factura/plistxusuario/10/1/{{loggeduserid}}"><i class="fas far fa-file"></i> Ver facturas</a>
                     </div>
                 </div>
             </li>

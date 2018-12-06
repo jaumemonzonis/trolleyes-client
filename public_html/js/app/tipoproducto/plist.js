@@ -19,7 +19,7 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             $scope.logged = true;
         }
         if (!$routeParams.rpp) {
-            $scope.rpp = 10;
+            $scope.rpp = "10";
         } else {
             $scope.rpp = $routeParams.rpp;
         }

@@ -1,6 +1,6 @@
 "use strict";
 
-moduleUsuario.controller("usuarioNewController", [
+moduleUsuario.controller("usuarioEditpassController", [
     "$scope",
     "$http",
     "$routeParams",
@@ -8,51 +8,76 @@ moduleUsuario.controller("usuarioNewController", [
     "sessionService",
     function ($scope, $http, $routeParams, toolService, oSessionService) {
         $scope.edited = true;
+        $scope.error = true;
         $scope.logged = false;
 
-        $scope.obj_tipoUsuario = {
-            id: null,
-            desc: null
-}
-        $scope.id = null;
-        
+       if (!$routeParams.id) {
+            $scope.id = 1;
+        } else {
+            $scope.id = $routeParams.id;
+} 
+
         $scope.mostrar = false;
         $scope.activar = true;
         $scope.ajaxData = "";
 
         $scope.obj = null;
         $scope.ob = 'usuario';
-        $scope.op = 'create';
+        $scope.op = 'edit';
         $scope.result = null;
-        $scope.title = "Nuevo de usuario";
+        $scope.title = "Edición de usuario";
         $scope.icon = "fa-file-text-o";
 
-
+        $http({
+            method: "GET",
+            url: 'http://localhost:8081/trolleyes/json?ob='+$scope.ob+'&op=get&id=' + $scope.id
+        }).then(function (response) {
+            $scope.id = response.data.message.id;
+            $scope.dni = response.data.message.dni;
+            $scope.nombre = response.data.message.nombre;
+            $scope.ape1 = response.data.message.ape1;
+            $scope.ape2 = response.data.message.ape2;
+            $scope.login = response.data.message.login;
+            //$scope.pass = 'passss';
+            $scope.obj_tipoUsuario = {
+                id: response.data.message.obj_tipoUsuario.id,
+                desc: response.data.message.obj_tipoUsuario.desc
+            }
+        }), function () {
+        };
 
         $scope.isActive = toolService.isActive;
+       
 
         $scope.update = function () {
-   
+            
+            if ($scope.pass===$scope.passNew){
+
             var json = {
-                id: null,
+                id: $scope.id,
                 dni: $scope.dni,
                 nombre: $scope.nombre,
-                ape1: $scope.ape1,
+              ape1: $scope.ape1,
                 ape2: $scope.ape2,
-                login: $scope.login2,
-                 pass: forge_sha256($scope.pass),
-                id_tipoUsuario: $scope.obj_tipoUsuario.id
+                login: $scope.login,
+                pass: forge_sha256($scope.pass),
+              id_tipoUsuario: $scope.obj_tipoUsuario.id
             }
             $http({
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=create',
+                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=update',
                 params: {json: JSON.stringify(json)}
             }).then(function () {
                 $scope.edited = false;
             })
+        } else {
+            $scope.edited = true;
+            $scope.error = false;
+            
+        }
         }
 
         $scope.tipoUsuarioRefresh = function (f, consultar) {
@@ -87,7 +112,6 @@ moduleUsuario.controller("usuarioNewController", [
         if (oSessionService.getUserName() !== "") {
             $scope.loggeduser = oSessionService.getUserName();
             $scope.loggeduserid = oSessionService.getId();
-           // $scope.loggertipousuario = oSessionService.
             $scope.logged = true;
         }
 
