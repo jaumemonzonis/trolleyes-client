@@ -6,7 +6,7 @@ moduleProducto.controller("productoEditController", [
     "$routeParams",
     "toolService",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, sessionService) {
 
         $scope.edited = true;
         $scope.logged = false;
@@ -99,10 +99,11 @@ moduleProducto.controller("productoEditController", [
         };
 
 
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+         if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
 

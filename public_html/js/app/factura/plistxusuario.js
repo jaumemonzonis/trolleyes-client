@@ -3,16 +3,17 @@
 //http://localhost:8081/trolleyes/json?ob=factura&op=getpagexusuario&rpp=10&page=1&idusuario=12
 //http://localhost:8081/trolleyes/json?ob=factura&op=getcountxusuario&idusuario=12
 moduleFactura.controller('facturaplistxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.ob = "factura";
         $scope.totalPages = 1;
         
         
-       if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+          if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
         if (!$routeParams.id) {

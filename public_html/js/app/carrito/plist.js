@@ -1,15 +1,16 @@
 'use strict'
 
 moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;
         $scope.conectado = false; 
 
-          if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+          if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
         

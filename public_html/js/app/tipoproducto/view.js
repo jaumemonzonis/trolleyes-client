@@ -1,7 +1,7 @@
 'use strict'
 
 moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', '$routeParams', '$window','sessionService',
-    function ($scope, $http, $routeParams, $window,oSessionService) {
+    function ($scope, $http, $routeParams, $window,sessionService) {
 
         $scope.ob = "tipoproducto";
 
@@ -10,10 +10,11 @@ moduleTipoproducto.controller("tipoproductoViewController", ['$scope', '$http', 
         } else {
             $scope.id = $routeParams.id;
         }
-    if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+          if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
         $http({
             method: 'GET',

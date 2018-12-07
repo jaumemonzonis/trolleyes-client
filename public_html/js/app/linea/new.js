@@ -7,15 +7,16 @@ moduleLinea.controller("lineaNewController", [
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window,sessionService) {
 
         $scope.ob = "linea";
         $scope.id = null;
         
-     if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+        if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
 

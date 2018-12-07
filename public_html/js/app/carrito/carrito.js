@@ -1,7 +1,7 @@
 'use strict'
 
 moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService, $window) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $window) {
 
 
 
@@ -108,10 +108,11 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
         };
 
 
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+         if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
         $scope.isActive = toolService.isActive;

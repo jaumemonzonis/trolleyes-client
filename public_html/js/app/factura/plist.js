@@ -1,18 +1,18 @@
 'use strict'
 //http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
 moduleFactura.controller('facturaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.ob = "factura";
         $scope.totalPages = 1;
         
         
-      if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+       if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
-
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";

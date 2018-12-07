@@ -2,11 +2,12 @@
 
 
 moduleLinea.controller('lineanewxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, $window, oSessionService) {
-      if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+    function ($scope, $http, $location, toolService, $routeParams, $window, sessionService) {
+        if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
         
         if (!$routeParams.id) {

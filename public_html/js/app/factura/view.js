@@ -1,11 +1,12 @@
 'use strict'
 
 moduleFactura.controller("facturaViewController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
-    function ($scope, $http, $routeParams, $window, oSessionService) {
-    if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+    function ($scope, $http, $routeParams, $window, sessionService) {
+    if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
         $scope.ob = "factura";
 

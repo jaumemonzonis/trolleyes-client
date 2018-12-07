@@ -1,12 +1,13 @@
 'use strict'
 
 moduleUsuario.controller('usuarioLogoutController', ['$scope', '$http', 'toolService', 'sessionService','$location',
-    function ($scope, $http, toolService, oSessionService, $location) {
+    function ($scope, $http, toolService, sessionService, $location) {
 
-          if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+            if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
 
@@ -17,7 +18,7 @@ moduleUsuario.controller('usuarioLogoutController', ['$scope', '$http', 'toolSer
         }).then(function () {
             $scope.validlog = false;
             $scope.failog = true;
-            oSessionService.setSessionInactive();
+            sessionService.setSessionInactive();
         });
         
 

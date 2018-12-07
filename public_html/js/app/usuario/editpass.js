@@ -6,7 +6,7 @@ moduleUsuario.controller("usuarioEditpassController", [
     "$routeParams",
     "toolService",
     "sessionService",
-    function ($scope, $http, $routeParams, toolService, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, sessionService) {
         $scope.edited = true;
         $scope.error = true;
         $scope.logged = false;
@@ -108,11 +108,11 @@ moduleUsuario.controller("usuarioEditpassController", [
             $location.path('/'+$scope.ob+'/plist');
         };
 
-
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+        if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
 

@@ -2,7 +2,7 @@
 'use strict'
 
 moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams,oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
         $scope.ob = "tipoproducto";
         $scope.totalPages = 1;
 
@@ -13,10 +13,11 @@ moduleTipoproducto.controller('tipoproductoPlistController', ['$scope', '$http',
             $scope.orderURLServidor = "&order=" + $routeParams.order;
             $scope.orderURLCliente = $routeParams.order;
         }
-    if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+        if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
         if (!$routeParams.rpp) {
             $scope.rpp = "10";
