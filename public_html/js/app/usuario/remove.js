@@ -1,7 +1,7 @@
 'use strict'
 
 moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
+    function ($scope, $http, $location, toolService, $routeParams,sessionService, $window) {
 
         $scope.ob = "usuario";
          $scope.tabla = true;
@@ -12,10 +12,11 @@ moduleUsuario.controller('usuarioRemoveController', ['$scope', '$http', '$locati
         } else {
             $scope.id = $routeParams.id;
         }
-     if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
+          if (sessionService.getUserName() !== "") {
+            $scope.loggeduser = sessionService.getUserName();
+            $scope.loggeduserid = sessionService.getId();
             $scope.logged = true;
+            $scope.tipousuarioID = sessionService.getTypeUserID();
         }
 
         $http({

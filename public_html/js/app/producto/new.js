@@ -6,7 +6,7 @@ moduleProducto.controller("productoNewController", [
     "$routeParams",
     "toolService",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, sessionService) {
 
         $scope.edited = true;
         $scope.logged = false;
@@ -101,12 +101,13 @@ moduleProducto.controller("productoNewController", [
             $location.path('/' + $scope.ob + '/plist');
         };
 
-
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
 
     }

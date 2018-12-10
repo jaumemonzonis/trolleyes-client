@@ -1,16 +1,16 @@
 'use strict'
 //http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
 moduleLinea.controller('lineaPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService',
-    function ($scope, $http, $location, toolService, $routeParams,oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams,sessionService) {
 
         $scope.ob = "linea";
         $scope.totalPages = 1;
-      if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
-
+//       if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";

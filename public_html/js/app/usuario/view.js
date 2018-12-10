@@ -1,7 +1,7 @@
 'use strict'
 
 moduleUsuario.controller('usuarioViewController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
+    function ($scope, $http, $location, toolService, $routeParams,sessionService, $window) {
 
         $scope.ob="usuario";
         
@@ -11,11 +11,12 @@ moduleUsuario.controller('usuarioViewController', ['$scope', '$http', '$location
             $scope.id = $routeParams.id;
         }
         
-       if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//           if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         $http({
             method: 'GET',

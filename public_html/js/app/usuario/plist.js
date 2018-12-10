@@ -1,17 +1,17 @@
 'use strict'
 //http://localhost:8081/json?ob=usuario&op=login&user=ddd&pass=pass
 moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams','sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams,oSessionService, $window) {
+    function ($scope, $http, $location, toolService, $routeParams,sessionService, $window) {
         
         $scope.ob="usuario";
         $scope.totalPages = 1;
 
-   if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
- 
-        }
+//         if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         $scope.isActive = toolService.isActive;
         

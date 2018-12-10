@@ -42,6 +42,7 @@ th {
 .btn.btn-light {
    height: 35px;
    width: 35px;
+  
    
 }
 .btn.btn-light.icon{
@@ -112,3 +113,21 @@ th {
     margin-left: 20%;
     grid-area: abajo;
 }
+
+.red-bar{
+
+ background-color:#FFFF99;
+}
+
+.red-bar.ng-enter {
+ animation-name: cambiarImagenDos;
+ animation-duration: 1s;
+ animation-timing-function: linear;
+}
+
+@keyframes cambiarImagenDos {
+0% {transform: scale(0.4);transform: translate(100px,50px); transform: rotate(20deg);}
+33% {transform: scale(0.8);}
+66% { transform: scale(1.2);}
+100% { transform: scale(1.4); background-color:#FFFF66;}
+ }

@@ -7,17 +7,18 @@ moduleTipoproducto.controller("tipoproductoRemoveController", [
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window,sessionService) {
 
         $scope.ob = "tipoproducto";
             $scope.tabla = true;
         $scope.msgopcioneliminar = true;
         
-    if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {

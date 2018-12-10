@@ -7,14 +7,25 @@ moduleFactura.controller("facturaEditController", [
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window, oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window, sessionService) {
 
+        $scope.edited = true;
         $scope.ob = "factura";
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+
+        $scope.obj = null;
+
+        $scope.op = 'edit';
+        $scope.result = null;
+        $scope.title = "Edición de factura";
+        $scope.icon = "fa-file-text-o";
+
+
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         if (!$routeParams.id) {
             $scope.id = 1;
@@ -30,9 +41,12 @@ moduleFactura.controller("facturaEditController", [
             $scope.id = response.data.message.id;
             $scope.myDate = new Date(response.data.message.fecha);
             $scope.iva = response.data.message.iva;
-            $scope.obj_usuario_id = response.data.message.obj_usuario.id;
-            $scope.obj_usuario_nombre = response.data.message.obj_usuario.nombre;
 
+            $scope.obj_usuario = {
+                id: response.data.message.obj_usuario.id,
+                nombre: response.data.message.obj_usuario.nombre
+
+            }
 
         }), function (response) {
             console.log(response);
@@ -41,13 +55,12 @@ moduleFactura.controller("facturaEditController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-            $scope.visualizar = false;
-            $scope.error = false;
+
             var json = {
                 id: $scope.id,
                 fecha: $scope.myDate,
                 iva: $scope.iva,
-                id_usuario: $scope.obj_usuario_id
+                id_usuario: $scope.obj_usuario.id
 
             }
             $http({
@@ -57,14 +70,39 @@ moduleFactura.controller("facturaEditController", [
                 },
                 url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=update',
                 params: {json: JSON.stringify(json)}
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
+            }).then(function () {
+                $scope.edited = false;
+            })
+        }
+
+        $scope.usuarioRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=get&id=' + $scope.obj_usuario.id
+                }).then(function (response) {
+                    $scope.obj_usuario = response.data.message;
+                    form.userForm.obj_usuario.$setValidity('valid', true);
+                }, function (response) {
+                    form.userForm.obj_usuario.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_usuario.$setValidity('valid', true);
             }
         }
+
+        $scope.back = function () {
+            window.history.back();
+        };
+        $scope.close = function () {
+            $location.path('/home');
+        };
+        $scope.plist = function () {
+            $location.path('/' + $scope.ob + '/plist');
+        };
+
+
 
         $scope.volver = function () {
             $window.history.back();

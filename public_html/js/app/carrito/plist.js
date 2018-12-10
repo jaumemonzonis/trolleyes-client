@@ -1,18 +1,19 @@
 'use strict'
 
 moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.totalPages = 1;
-        $scope.conectado = false; 
+        $scope.conectado = false;
 
-          if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
-        
+
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=show'
@@ -24,14 +25,14 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
             $scope.ajaxDataAdd = response.data.message || 'Request failed';
         });
 
-    function show() {
-            
+        function show() {
+
             $http({
                 method: 'GET',
                 url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=show'
             }).then(function (response) {
                 $scope.status = response.status;
-                $scope.ajaxDataAdd = response.data.message;                
+                $scope.ajaxDataAdd = response.data.message;
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataAdd = response.data.message || 'Request failed';
@@ -61,36 +62,47 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
                 $scope.page = 1;
             }
         }
-        
-        $scope.stock=false;  
-        $scope.add = function (id) {            
-            
+
+        $scope.stock = false;
+        $scope.add = function (id) {
+
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=add&prod='+id
+                url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=add&prod=' + id
             }).then(function (response) {
                 $scope.status = response.status;
-                
-                if ($scope.status==400){
-                    
-                   $scope.stock=true;  
+
+                if ($scope.status == 400) {
+
+                    $scope.stock = true;
                 }
-                $scope.ajaxDataAdd = response.data.message; 
-       show();
+
+                $scope.ajaxDataAdd = response.data.message;
+                show();
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataAdd = response.data.message || 'Request failed';
             });
-        };
-        
-        $scope.reduce = function (id) {            
             
+            //animacion
+            
+//            https://css-tricks.com/animations-the-angular-way/
+            
+            
+            
+            
+            
+            
+        };
+
+        $scope.reduce = function (id) {
+
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=reduce&prod='+id
+                url: 'http://localhost:8081/trolleyes/json?ob=carrito&op=reduce&prod=' + id
             }).then(function (response) {
                 $scope.status = response.status;
-                $scope.ajaxDataAdd = response.data.message; 
+                $scope.ajaxDataAdd = response.data.message;
                 show();
             }, function (response) {
                 $scope.status = response.status;
@@ -114,7 +126,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
             }
             $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         }
-        
+
         //getcount
         $http({
             method: 'GET',
@@ -147,7 +159,7 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
 
         $scope.update = function () {
-            $location.url(`producto/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
+            $location.url(`carrito/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
         };
 
 
@@ -179,18 +191,18 @@ moduleCarrito.controller('carritoPlistController', ['$scope', '$http', '$locatio
 
 
 
- $scope.existencias = function (idProd) {
-            var arrayLength= $scope.ajaxDataAdd.length;
-            for (var i=0; i < arrayLength; i++){
-            if ($scope.ajaxDataAdd !== null && $scope.ajaxDataAdd !== "Carrito vacio") {
-                if ($scope.ajaxDataAdd[i].obj_producto.id === idProd){
-                    return $scope.ajaxDataAdd[i].cantidad;
+        $scope.existencias = function (idProd) {
+            var arrayLength = $scope.ajaxDataAdd.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if ($scope.ajaxDataAdd !== null && $scope.ajaxDataAdd !== "Carrito vacio") {
+                    if ($scope.ajaxDataAdd[i].obj_producto.id === idProd) {
+                        return $scope.ajaxDataAdd[i].cantidad;
+                    }
                 }
             }
+            return 0;
+
         }
-return 0;
-        
-    }
 
 
 

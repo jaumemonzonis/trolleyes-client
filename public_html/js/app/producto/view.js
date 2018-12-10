@@ -1,14 +1,15 @@
 'use strict'
 
 moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
-    function ($scope, $http, $routeParams, $window, oSessionService) {
+    function ($scope, $http, $routeParams, $window, sessionService) {
 
         $scope.ob = "producto";
-    if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//     if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         if (!$routeParams.id) {
             $scope.id = 1;

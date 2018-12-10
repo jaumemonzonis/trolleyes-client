@@ -1,22 +1,22 @@
 'use strict'
-moduleComponent.component('tipoproductoSelection', {
-    templateUrl: 'js/app/tipoproducto/selection.html',
+moduleComponent.component('facturaSelection', {
+    templateUrl: 'js/app/factura/selection.html',
     controllerAs: 'c',
     controller: cController,
     bindings: {
         obj: '=',
-        onTipoproductoSet: '&'
+        onFacturaSet: '&'
     },
 });
 
 function cController($http) {
     var self = this;
-    self.ob = "tipoproducto";
+    self.ob = "factura";
     self.page = 1;
     self.totalPages = 1;
     self.orderURLServidor = "";
-    self.rpp = "10";
-//    self.id = 1;
+    self.rpp = 10;
+    self.id = 1;
 
 
 
@@ -46,10 +46,10 @@ function cController($http) {
         self.data = response.data.message || 'Request failed';
     });
 
-    self.save = function (id, desc) {
+    self.save = function (id, id_usuario) {
         self.obj.id = id;
-        self.obj.desc = desc;
-        self.onTipoproductoSet();
+        self.obj.id_usuario = id_usuario;
+        self.onFacturaSet();
     };
 
 

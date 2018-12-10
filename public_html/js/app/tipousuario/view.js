@@ -1,7 +1,7 @@
 'use strict'
 
 moduleTipousuario.controller("tipousuarioViewController", ['$scope', '$http', '$routeParams', '$window','sessionService',
-    function ($scope, $http, $routeParams, $window, oSessionService) {
+    function ($scope, $http, $routeParams, $window, sessionService) {
 
         $scope.ob = "tipousuario";
 
@@ -10,11 +10,12 @@ moduleTipousuario.controller("tipousuarioViewController", ['$scope', '$http', '$
         } else {
             $scope.id = $routeParams.id;
         }
-     if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
         $http({
             method: 'GET',
             url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id

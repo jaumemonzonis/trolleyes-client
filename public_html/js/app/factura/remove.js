@@ -1,12 +1,13 @@
 'use strict'
 
 moduleFactura.controller("facturaRemoveController", ['$scope', '$http', '$routeParams', '$window', 'sessionService',
-    function ($scope, $http, $routeParams, $window, oSessionService) {
-     if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+    function ($scope, $http, $routeParams, $window, sessionService) {
+//     if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
         $scope.ob = "factura";
             $scope.tabla = true;
         $scope.msgopcioneliminar = true;

@@ -1,54 +1,112 @@
 "use strict";
 
-moduleLinea.controller("lineaNewController", [
+moduleFactura.controller("lineaNewController", [
     "$scope",
     "$http",
     "$routeParams",
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window, sessionService) {
 
+        $scope.edited = true;
         $scope.ob = "linea";
-        $scope.id = null;
-        
-     if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
 
+        $scope.obj = null;
+
+        $scope.op = 'create';
+        $scope.result = null;
+        $scope.title = "Edición de linea";
+        $scope.icon = "fa-file-text-o";
+
+
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
+
+            $scope.id = null;
+    
+    $scope.obj_Producto = {
+            id: null,
+            desc: null
+        }
 
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-            $scope.visualizar = false;
-            $scope.error = false;
-            var json = {
-                cantidad: $scope.cantidad,
-                id_factura: $scope.obj_factura_id,
-                id_producto:  $scope.obj_producto_id
-            };
 
+            var json = {
+              cantidad: $scope.cantidad,
+                id_factura: $scope.obj_Factura_id,
+                id_producto:  $scope.obj_Producto_id
+
+            }
             $http({
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=create',
+                url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=update',
                 params: {json: JSON.stringify(json)}
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
+            }).then(function () {
+                $scope.edited = false;
+            })
+        }
+
+        $scope.productoRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=producto&op=get&id=' + $scope.obj_Producto.id
+                }).then(function (response) {
+                    $scope.obj_Producto = response.data.message;
+                    form.userForm.obj_Producto.$setValidity('valid', true);
+                }, function (response) {
+                    form.userForm.obj_Producto.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_Producto.$setValidity('valid', true);
+            }
+        };
+        
+        $scope.facturaRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=factura&op=get&id=' + $scope.obj_Factura.id
+                }).then(function (response) {
+                    $scope.obj_Factura = response.data.message;
+                    form.userForm.obj_Factura.$setValidity('valid', true);
+                }, function (response) {
+                    form.userForm.obj_Factura.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_Factura.$setValidity('valid', true);
             }
         }
 
+        $scope.back = function () {
+            window.history.back();
+        };
+        $scope.close = function () {
+            $location.path('/home');
+        };
+        $scope.plist = function () {
+            $location.path('/' + $scope.ob + '/plist');
+        };
+
+
+
         $scope.volver = function () {
             $window.history.back();
-        };
-        
+        }
+
+
+
     }
 ]);

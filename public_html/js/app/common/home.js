@@ -1,14 +1,15 @@
 'use strict'
 
-moduleCommon.controller('homeController', ['$scope', '$location', 'toolService', 'sessionService','$location',
-    function ($scope, $location, toolService, oSessionService) {
+moduleCommon.controller('homeController', ['$scope', '$location', 'toolService', 'sessionService',
+    function ($scope, $location, toolService, sessionService) {
         $scope.logged = false;
         $scope.ruta = $location.path();
         $scope.isActive = toolService.isActive;
-
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//
+//   if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
     }]);

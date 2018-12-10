@@ -1,14 +1,14 @@
-<header ng-include="'js/app/header.html'"></header>
+<header-component></header-component>
 <div class="container-fluid mb-5">
     <div class="row" style="margin-top: 80px">
         <div class="col-12">
             <div class="row">
-                <div class="mx-auto col-4 text-center">
-                    <h3>Nuevo producto</h3>
+                <div class="mx-auto col-5 text-center">
+                    <h3><i class="fas fa-cube fa-1x"></i> Nuevo producto</h3>
                 </div>
             </div>
             <div class="row" ng-show="edited">
-                <div class="col-4 mx-auto">
+                <div class="col-5 mx-auto">
                     <ng-form name="userForm" class="form" ng-show="result == null">
                         <div class="form-group">
                             <label>ID</label>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="row" ng-show="!edited">
-                <div class="col-4 mx-auto">
+                <div class="col-5 mx-auto">
                     <div class="alert alert-success" role="alert">
                         <p class="text-center mt-2"> Producto creado correctamente.<p> 
                     </div>

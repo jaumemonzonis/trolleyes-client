@@ -1,7 +1,7 @@
 'use strict'
 
 moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService', "$window",
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService, $window) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService, $window) {
 
 
 
@@ -30,8 +30,13 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message;
-
-
+                if ( $scope.ajaxData==="Carrito vacio"){
+                    
+                  $scope.alert = true;   
+                }
+                
+                
+                
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message || 'Request failed';
@@ -79,7 +84,6 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxDataEmpty = response.data.message;
-
                 show();
                 $scope.alert = true;
             }, function (response) {
@@ -97,8 +101,7 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
                 $scope.status = response.status;
                 $scope.msg_factura = response.data.message;
                 $scope.factura = true;
-                 $scope.facturaOK = "ok";
-                //show();
+                $location.url(`carrito/facturacarrito/`+ $scope.msg_factura);
             }, function (response) {
                 $scope.status = response.status;
                 $scope.msg_factura = response.data.message || 'Request failed';
@@ -108,11 +111,15 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
         };
 
 
-        if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//         if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
+
+
+
 
         $scope.isActive = toolService.isActive;
 

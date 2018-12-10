@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Seleccionar un tipo de usuario</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Seleccionar un tipo de producto</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -9,7 +9,7 @@
         <div class="modal-body">
 
             <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Listado de Tipos de Usuario</h1>
+                <h1 class="h2">Listado de Tipos de Productos</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn btn-light" ng-click="c.resetOrder()">
                         <i class="fa fa-eye"></i>
@@ -63,12 +63,33 @@
                                 <i class="fas fa-long-arrow-alt-down"></i>
                             </button>
                         </th>
+
                         <th>
                             Descripción
                             <button type="button" class="btn btn-light" ng-click="ordena('desc', 'asc')">
-                                <i class="fas fa-long-arrow-alt-up"></i>
+                                <a class="fas fa-long-arrow-alt-up" ></a>
+
                             </button>
                             <button type="button" class="btn btn-light" ng-click="ordena('desc', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                            </button>
+                        </th>
+                        <th>
+                            Existencias
+                            <button type="button" class="btn btn-light" ng-click="ordena('existencias', 'asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="ordena('existencias', 'desc')">
+                                <i class="fas fa-long-arrow-alt-down"></i>
+                            </button>
+                        </th>
+
+                        <th>
+                            Tipo producto
+                            <button type="button" class="btn btn-light" ng-click="ordena('id_tipoProducto', 'asc')">
+                                <i class="fas fa-long-arrow-alt-up"></i>
+                            </button>
+                            <button type="button" class="btn btn-light" ng-click="ordena('id_tipoProducto', 'desc')">
                                 <i class="fas fa-long-arrow-alt-down"></i>
                             </button>
                         </th>
@@ -77,12 +98,14 @@
                         </th>
                     </tr>
                     <tr ng-repeat="fila in c.data">
-                        <td>{{fila.id}}</td>
+                        <td>{{fila.id}}</td>    
                         <td>{{fila.desc}}</td>
+                        <td>{{fila.existencias}}</td>
+                        <td>{{fila.obj_tipoProducto.desc}}</td>
                         <td>
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="btn-group">
-                                    <a class="btn btn-default btn-xs" ng-click="c.save(fila.id,fila.desc)" data-dismiss="modal">
+                                    <a class="btn btn-default btn-xs" ng-click="c.save(fila.id, fila.desc)" data-dismiss="modal">
                                         <i class="fa fa-reply" aria-hidden="true"></i>
                                     </a>
                                 </div>

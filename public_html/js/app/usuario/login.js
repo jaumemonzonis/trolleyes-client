@@ -3,48 +3,50 @@
 moduleUsuario.controller("usuarioLoginController", [
     "$scope",
     "$http",
-    "$routeParams",
     "toolService",
     "sessionService",
     "$window",
-    function ($scope, $http, $routeParams, toolService, oSessionService, $location, $window) {
+    "$location",
+    function ($scope, $http, toolService, sessionService, $window, $location) {
 
 
         $scope.volver = function () {
             $window.history.back();
         }
-        
+
         $scope.logged = false;
         $scope.failedlogin = false;
 
         $scope.logging = function () {
 
             var login = $scope.login;
-            //var pass = forge_sha256($scope.pass);
-            var pass = $scope.pass;
+            var pass = forge_sha256($scope.pass);
+            //var pass = $scope.pass;
 
 
- $http({
+            $http({
                 method: 'GET',
                 header: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=login&user=' + login + '&pass=' + pass
-            }).then(function (response, data) {
-                if (response.data.message.id == 0) {
-                    $scope.failedlogin = true;
-                } else {
+            }).then(function (response) {
+                if (response.data.message.id !== 0) {
                     $scope.logged = true;
                     $scope.failedlogin = false;
-                    oSessionService.setSessionActive();
-                    oSessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
-                    $scope.loggeduser = oSessionService.getUserName();
-                    $scope.loggeduserid = oSessionService.setId(response.data.message.id);
-
+                    sessionService.setSessionActive();
+                    sessionService.setUserName(response.data.message.nombre + " " + response.data.message.ape1);
+                    $scope.loggeduser = sessionService.getUserName();
+                    $scope.loggeduserid = sessionService.setId(response.data.message.id);
+                    sessionService.setTypeUserID(response.data.message.obj_tipoUsuario.id);
+                    $location.url('/home');
+                } else {
+                    $scope.failedlogin = true;
                 }
-
+   
             }, function (response) {
-
+                $scope.failedlogin = true;
+                $scope.logged = false;
             });
         }
 

@@ -3,17 +3,18 @@
 //http://localhost:8081/trolleyes/json?ob=linea&op=getpagexusuario&rpp=10&page=1&idfactura=3
 //http://localhost:8081/trolleyes/json?ob=linea&op=getcountxusuario&idfactura=1
 moduleLinea.controller('lineaplistxusuarioController', ['$scope', '$http', '$location', 'toolService', '$routeParams', 'sessionService',
-    function ($scope, $http, $location, toolService, $routeParams, oSessionService) {
+    function ($scope, $http, $location, toolService, $routeParams, sessionService) {
 
         $scope.ob = "linea";
         $scope.totalPages = 1;
         
         
-   if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
+//      if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         if (!$routeParams.id) {
             $scope.id= 1;  

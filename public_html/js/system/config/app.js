@@ -12,7 +12,9 @@ var trolleyes = angular.module('MyApp', [
     'productoControllers',
     'lineaControllers',
     'carritoControllers',
-    'ngMaterial'
+    'ngMaterial',
+    'Directives'
+    
 ]).config(function ($mdDateLocaleProvider) {
     // Example of a Spanish localization.
     $mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -49,3 +51,4 @@ var moduleFactura = angular.module ('facturaControllers',[]);
 var moduleTipoproducto = angular.module('tipoproductoControllers',[]);
 var moduleLinea = angular.module('lineaControllers',[]);
 var moduleCarrito = angular.module('carritoControllers',[]);
+var moduloDirectivas = angular.module('Directives', []);

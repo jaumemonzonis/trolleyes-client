@@ -1,21 +1,31 @@
 "use strict";
 
-moduleLinea.controller("lineaEditController", [
+moduleFactura.controller("lineaEditController", [
     "$scope",
     "$http",
     "$routeParams",
     "toolService",
     "$window",
     'sessionService',
-    function ($scope, $http, $routeParams, toolService, $window,oSessionService) {
+    function ($scope, $http, $routeParams, toolService, $window, sessionService) {
 
+        $scope.edited = true;
         $scope.ob = "linea";
-       if (oSessionService.getUserName() !== "") {
-            $scope.loggeduser = oSessionService.getUserName();
-            $scope.loggeduserid = oSessionService.getId();
-            $scope.logged = true;
-        }
 
+        $scope.obj = null;
+
+        $scope.op = 'edit';
+        $scope.result = null;
+        $scope.title = "Edición de linea";
+        $scope.icon = "fa-file-text-o";
+
+//
+//        if (sessionService.getUserName() !== "") {
+//            $scope.loggeduser = sessionService.getUserName();
+//            $scope.loggeduserid = sessionService.getId();
+//            $scope.logged = true;
+//            $scope.tipousuarioID = sessionService.getTypeUserID();
+//        }
 
         if (!$routeParams.id) {
             $scope.id = 1;
@@ -28,15 +38,17 @@ moduleLinea.controller("lineaEditController", [
             url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=get&id=' + $scope.id
         }).then(function (response) {
             console.log(response);
-            $scope.status = response.status;
             $scope.id = response.data.message.id;
             $scope.cantidad = response.data.message.cantidad;
 
-            $scope.obj_producto_id = response.data.message.obj_Producto.id;
-            $scope.obj_producto_desc = response.data.message.obj_Producto.desc;
-            $scope.obj_factura_id = response.data.message.obj_Factura.id;
-            $scope.obj_factura_desc = response.data.message.obj_Factura.desc;
-
+            $scope.obj_Producto = {
+                id: response.data.message.obj_Producto.id,
+                desc: response.data.message.obj_Producto.desc
+            }
+            $scope.obj_Factura = {
+                id: response.data.message.obj_Factura.id,
+                id_usuario: response.data.message.obj_Factura.id_usuario
+            }
         }), function (response) {
             console.log(response);
         };
@@ -44,13 +56,13 @@ moduleLinea.controller("lineaEditController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-            $scope.visualizar = false;
-            $scope.error = false;
+
             var json = {
                 id: $scope.id,
                 cantidad: $scope.cantidad,
-                id_factura: $scope.obj_factura_id,
-                id_producto: $scope.obj_producto_id
+                id_factura: $scope.obj_Factura.id,
+                id_producto: $scope.obj_Producto.id
+
             }
             $http({
                 method: 'GET',
@@ -59,18 +71,62 @@ moduleLinea.controller("lineaEditController", [
                 },
                 url: 'http://localhost:8081/trolleyes/json?ob=' + $scope.ob + '&op=update',
                 params: {json: JSON.stringify(json)}
-            }).then(function (response) {
-                console.log(response);
-                $scope.visualizar = true;
-            }), function (response) {
-                console.log(response);
-                $scope.error = true;
+            }).then(function () {
+                $scope.edited = false;
+            })
+        }
+
+        $scope.productoRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=producto&op=get&id=' + $scope.obj_Producto.id
+                }).then(function (response) {
+                    $scope.obj_Producto = response.data.message;
+                    form.userForm.obj_Producto.$setValidity('valid', true);
+                }, function (response) {
+                    form.userForm.obj_Producto.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_Producto.$setValidity('valid', true);
+            }
+        };
+        
+        $scope.facturaRefresh = function (f, consultar) {
+            var form = f;
+            if (consultar) {
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost:8081/trolleyes/json?ob=factura&op=get&id=' + $scope.obj_Factura.id
+                }).then(function (response) {
+                    $scope.obj_Factura = response.data.message;
+                    form.userForm.obj_Factura.$setValidity('valid', true);
+                }, function (response) {
+                    form.userForm.obj_Factura.$setValidity('valid', false);
+                });
+            } else {
+                form.userForm.obj_Factura.$setValidity('valid', true);
             }
         }
+
+        $scope.back = function () {
+            window.history.back();
+        };
+        $scope.close = function () {
+            $location.path('/home');
+        };
+        $scope.plist = function () {
+            $location.path('/' + $scope.ob + '/plist');
+        };
+
+
 
         $scope.volver = function () {
             $window.history.back();
         }
-      
+
+
+
     }
 ]);
