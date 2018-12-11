@@ -47,14 +47,27 @@ moduleProducto.controller("productoEditController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-          
+          var nombreFoto;
+            console.log($scope.foto);
+            
+            if ($scope.foto !== undefined) {
+                nombreFoto = $scope.foto.name;
+                $scope.uploadFile(nombreFoto);
+            } else {
+                if ($scope.ajaxDatoProducto.foto != '' || $scope.ajaxDatoProducto.foto != null) {
+                    nombreFoto = $scope.ajaxDatoProducto.foto;
+                } else {
+                    nombreFoto = "default.jpg";
+                }
+}
+
             var json = {
                 id: $scope.id,
                 codigo: $scope.codigo,
                 desc: $scope.desc,
                 existencias: $scope.existencias,
                 precio: $scope.precio,
-                foto: $scope.foto,
+                 foto: nombreFoto,
                 id_tipoProducto: $scope.obj_tipoProducto.id
             }
             
@@ -98,14 +111,42 @@ moduleProducto.controller("productoEditController", [
             $location.path('/'+$scope.ob+'/plist');
         };
 
-//
-//         if (sessionService.getUserName() !== "") {
-//            $scope.loggeduser = sessionService.getUserName();
-//            $scope.loggeduserid = sessionService.getId();
-//            $scope.logged = true;
-//            $scope.tipousuarioID = sessionService.getTypeUserID();
-//        }
-
-
-    }
-]);
+        $scope.uploadFile = function (nombreFoto) {
+            //Solucion mas cercana
+            //https://stackoverflow.com/questions/37039852/send-formdata-with-other-field-in-angular
+            var file = $scope.foto;
+            //Cambiar el nombre del archivo
+            //https://stackoverflow.com/questions/30733904/renaming-a-file-object-in-javascript
+            file = new File([file], nombreFoto, { type: file.type });
+            console.log(file)
+            //Api FormData 
+            //https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest/FormData
+            var oFormData = new FormData();
+            oFormData.append('file', file);
+            $http({
+                headers: { 'Content-Type': undefined },
+                method: 'POST',
+                data: oFormData,
+                url: `json?ob=producto&op=addimage`
+            })
+            /*.then(function (response) {
+                console.log(response);
+            }, function (response) {
+                console.log(response);
+            });*/
+        };
+    }]).directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+    
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        }
+}]);

@@ -50,14 +50,22 @@ moduleProducto.controller("productoNewController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-
+            $scope.uploadFile();
+            var nombreFoto;
+            if ($scope.myFile === undefined) {
+                nombreFoto = "default.jpg";
+            } else {
+                nombreFoto = $scope.myFile.name
+            }
+            
+            
             var json = {
                 id: null,
                 codigo: $scope.codigo,
                 desc: $scope.desc,
                 existencias: $scope.existencias,
                 precio: $scope.precio,
-                foto: $scope.foto,
+                foto: nombreFoto,
                 id_tipoProducto: $scope.obj_tipoProducto.id
             }
 
@@ -100,15 +108,40 @@ moduleProducto.controller("productoNewController", [
         $scope.plist = function () {
             $location.path('/' + $scope.ob + '/plist');
         };
+$scope.uploadFile = function () {
+            var file;
+            //Solucion mas cercana
+            //https://stackoverflow.com/questions/37039852/send-formdata-with-other-field-in-angular
+            file = $scope.myFile;
 
-//
-//        if (sessionService.getUserName() !== "") {
-//            $scope.loggeduser = sessionService.getUserName();
-//            $scope.loggeduserid = sessionService.getId();
-//            $scope.logged = true;
-//            $scope.tipousuarioID = sessionService.getTypeUserID();
-//        }
-
-
-    }
-]);
+            //Api FormData 
+            //https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest/FormData
+            var oFormData = new FormData();
+            oFormData.append('file', file);
+            $http({
+                headers: { 'Content-Type': undefined },
+                method: 'POST',
+                data: oFormData,
+                url: `json?ob=producto&op=addimage`
+            })
+            /*.then(function (response) {
+                console.log(response);
+            }, function (response) {
+                console.log(response);
+            });*/
+        };
+    }]).directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+    
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        }
+}]);
