@@ -39,14 +39,35 @@ moduleFactura.controller("facturaEditController", [
         }).then(function (response) {
             console.log(response);
             $scope.id = response.data.message.id;
-            $scope.myDate = new Date(response.data.message.fecha);
             $scope.iva = response.data.message.iva;
-
             $scope.obj_usuario = {
                 id: response.data.message.obj_usuario.id,
                 nombre: response.data.message.obj_usuario.nombre
-
             }
+
+            $scope.ajaxFecha = response.data.message.fecha;
+            $scope.resultado = $scope.ajaxFecha.slice(0, 3);
+            switch ($scope.resultado) {
+                case "ene":
+                    $scope.fecha = $scope.ajaxFecha.replace("ene", "jan");
+                    break;
+                case "abr":
+                    $scope.fecha = $scope.ajaxFecha.replace("abr", "apr");
+                    break;
+                case "ago":
+                    $scope.fecha = $scope.ajaxFecha.replace("ago", "aug");
+                    break;
+                case "dic":
+                    $scope.fecha = $scope.ajaxFecha.replace("dic", "dec");
+                    break;
+                default:
+                    $scope.fecha = $scope.ajaxFecha;
+                    break;
+            }
+            
+            $scope.myDate = new Date($scope.fecha);
+
+
 
         }), function (response) {
             console.log(response);

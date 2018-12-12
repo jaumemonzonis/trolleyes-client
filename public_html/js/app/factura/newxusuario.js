@@ -18,7 +18,7 @@ moduleFactura.controller('facturanewxusuarioController', ['$scope', '$http', '$l
         
         $scope.ob = "factura";
         $scope.id = null;
- 
+        $scope.myDate = new Date();
 
         $scope.isActive = toolService.isActive;
         
@@ -39,7 +39,7 @@ moduleFactura.controller('facturanewxusuarioController', ['$scope', '$http', '$l
             $scope.error = false;
             var json = {
                 id: null,
-                 fecha: $scope.myDate,
+                fecha: $scope.myDate,
                 iva: $scope.iva,
                 id_usuario: $scope.id_usuario
             };

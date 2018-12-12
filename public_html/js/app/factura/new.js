@@ -27,18 +27,20 @@ moduleFactura.controller("facturaNewController", [
 //            $scope.tipousuarioID = sessionService.getTypeUserID();
 //        }
 
-     
+
 
         $scope.obj_usuario = {
             id: null,
- 
+            nombre: null
+
         }
 
-
+        $scope.myDate = new Date();
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
 
+            
             var json = {
                 id: null,
                 fecha: $scope.myDate,
