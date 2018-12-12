@@ -16,6 +16,7 @@ function js(toolService, sessionService, $http, $route) {
     self.logged = sessionService.isSessionActive();
     self.tipousuarioID = sessionService.getTypeUserID();
     self.isActive = toolService.isActive;
+    self.limpiar = sessionService.isSessionActive();
 
 
 }

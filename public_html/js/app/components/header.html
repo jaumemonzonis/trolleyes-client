@@ -9,25 +9,25 @@
             <li class="nav-item" ng-show="c.tipousuarioID!=3" ng-class="{'active': c.isActive('/home')}">
                 <a class="nav-link" href="home">Home <i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item" ng-show="c.tipousuarioID==1" ng-class="{'active': c.isActive('/tipousuario/plist')}">
+            <li class="nav-item" ng-show="c.limpiar && c.tipousuarioID==1" ng-class="{'active': c.isActive('/tipousuario/plist')}">
                 <a class="nav-link" href="tipousuario/plist"><i class="fas fas fa-users fa-1x"></i> Tipo Usuario</a>
             </li>
-            <li class="nav-item" ng-show="c.tipousuarioID==1" ng-class="{'active': c.isActive('/usuario/plist')}">
+            <li class="nav-item" ng-show="c.limpiar && c.tipousuarioID==1" ng-class="{'active': c.isActive('/usuario/plist')}">
                 <a class="nav-link" href="usuario/plist"><i class="fas fa-user fa-1x"></i> Usuario</a>
             </li>
-            <li class="nav-item" ng-show="c.tipousuarioID==1" ng-class="{'active': c.isActive('/factura/plist')}">
+            <li class="nav-item" ng-show="c.limpiar && c.tipousuarioID==1" ng-class="{'active': c.isActive('/factura/plist')}">
                 <a class="nav-link" href="factura/plist"><i class="fas far fa-file fa-1x"></i> Factura</a>
             </li>
-            <li class="nav-item"  ng-show="c.tipousuarioID==1" ng-class="{'active': isActive('/producto/plist')}">
+            <li class="nav-item"  ng-show=" c.limpiar && c.tipousuarioID==1" ng-class="{'active': isActive('/producto/plist')}">
                 <a class="nav-link" href="producto/plist"><i class="fas fas fa-cube fa-1x"></i> Producto</a>
             </li>
-            <li class="nav-item" ng-show="c.tipousuarioID==1" ng-class="{'active':c.isActive('/tipoproducto/plist')}">
+            <li class="nav-item" ng-show=" c.limpiar && c.tipousuarioID==1" ng-class="{'active':c.isActive('/tipoproducto/plist')}">
                 <a class="nav-link" href="tipoproducto/plist"><i class="fas fas fa-cubes fa-1x"></i> Tipo Producto</a>
             </li>
-            <li class="nav-item" ng-show="c.tipousuarioID==1" ng-class="{'active': c.isActive('/linea/plist')}">
+            <li class="nav-item" ng-show="c.limpiar && c.tipousuarioID==1" ng-class="{'active': c.isActive('/linea/plist')}">
                 <a class="nav-link" href="linea/plist"><i class="fas fas fa-align-justify fa-1x"></i> Linea</a>
             </li>
-             <li class="nav-item" ng-show="c.tipousuarioID==2" ng-class="{'active': c.isActive('/carrito/plist')}">
+             <li class="nav-item" ng-show="c.limpiar && c.tipousuarioID==2" ng-class="{'active': c.isActive('/carrito/plist')}">
                 <a class="nav-link" href="carrito/plist"><i class="fas fas fa-shopping-cart fa-1x"></i> Productos</a>
             </li>
 
