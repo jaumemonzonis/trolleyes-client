@@ -11,17 +11,17 @@ moduleProducto.controller("productoEditController", [
         $scope.edited = true;
         $scope.logged = false;
 
-       if (!$routeParams.id) {
+        if (!$routeParams.id) {
             $scope.id = 1;
         } else {
             $scope.id = $routeParams.id;
-} 
+        }
 
         $scope.mostrar = false;
         $scope.activar = true;
         $scope.ajaxData = "";
 
-  
+   
 
         $http({
             method: "GET",
@@ -47,9 +47,9 @@ moduleProducto.controller("productoEditController", [
         $scope.isActive = toolService.isActive;
 
         $scope.update = function () {
-          var nombreFoto;
+            var nombreFoto;
             console.log($scope.foto);
-            
+
             if ($scope.foto !== undefined) {
                 nombreFoto = $scope.foto.name;
                 $scope.uploadFile(nombreFoto);
@@ -59,7 +59,7 @@ moduleProducto.controller("productoEditController", [
                 } else {
                     nombreFoto = "default.jpg";
                 }
-}
+            }
 
             var json = {
                 id: $scope.id,
@@ -67,10 +67,10 @@ moduleProducto.controller("productoEditController", [
                 desc: $scope.desc,
                 existencias: $scope.existencias,
                 precio: $scope.precio,
-                 foto: nombreFoto,
+                foto: nombreFoto,
                 id_tipoProducto: $scope.obj_tipoProducto.id
             }
-            
+
             $http({
                 method: 'GET',
                 header: {
@@ -100,7 +100,7 @@ moduleProducto.controller("productoEditController", [
                 form.userForm.obj_tipoProducto.$setValidity('valid', true);
             }
         }
-        
+
         $scope.back = function () {
             window.history.back();
         };
@@ -108,7 +108,7 @@ moduleProducto.controller("productoEditController", [
             $location.path('/home');
         };
         $scope.plist = function () {
-            $location.path('/'+$scope.ob+'/plist');
+            $location.path('/' + $scope.ob + '/plist');
         };
 
         $scope.uploadFile = function (nombreFoto) {
@@ -117,23 +117,23 @@ moduleProducto.controller("productoEditController", [
             var file = $scope.foto;
             //Cambiar el nombre del archivo
             //https://stackoverflow.com/questions/30733904/renaming-a-file-object-in-javascript
-            file = new File([file], nombreFoto, { type: file.type });
+            file = new File([file], nombreFoto, {type: file.type});
             console.log(file)
             //Api FormData 
             //https://developer.mozilla.org/es/docs/Web/API/XMLHttpRequest/FormData
             var oFormData = new FormData();
             oFormData.append('file', file);
             $http({
-                headers: { 'Content-Type': undefined },
+                headers: {'Content-Type': undefined},
                 method: 'POST',
                 data: oFormData,
                 url: `json?ob=producto&op=addimage`
             })
             /*.then(function (response) {
-                console.log(response);
-            }, function (response) {
-                console.log(response);
-            });*/
+             console.log(response);
+             }, function (response) {
+             console.log(response);
+             });*/
         };
     }]).directive('fileModel', ['$parse', function ($parse) {
         return {
@@ -141,7 +141,7 @@ moduleProducto.controller("productoEditController", [
             link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
-    
+
                 element.bind('change', function () {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
@@ -149,4 +149,4 @@ moduleProducto.controller("productoEditController", [
                 });
             }
         }
-}]);
+    }]);

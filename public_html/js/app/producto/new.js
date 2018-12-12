@@ -24,7 +24,7 @@ moduleProducto.controller("productoNewController", [
         $scope.activar = true;
         $scope.ajaxData = "";
 
-
+  
 
 //        $http({
 //            method: "GET",
@@ -57,8 +57,8 @@ moduleProducto.controller("productoNewController", [
             } else {
                 nombreFoto = $scope.myFile.name
             }
-            
-            
+
+
             var json = {
                 id: null,
                 codigo: $scope.codigo,
@@ -108,7 +108,7 @@ moduleProducto.controller("productoNewController", [
         $scope.plist = function () {
             $location.path('/' + $scope.ob + '/plist');
         };
-$scope.uploadFile = function () {
+        $scope.uploadFile = function () {
             var file;
             //Solucion mas cercana
             //https://stackoverflow.com/questions/37039852/send-formdata-with-other-field-in-angular
@@ -119,16 +119,16 @@ $scope.uploadFile = function () {
             var oFormData = new FormData();
             oFormData.append('file', file);
             $http({
-                headers: { 'Content-Type': undefined },
+                headers: {'Content-Type': undefined},
                 method: 'POST',
                 data: oFormData,
                 url: `json?ob=producto&op=addimage`
             })
             /*.then(function (response) {
-                console.log(response);
-            }, function (response) {
-                console.log(response);
-            });*/
+             console.log(response);
+             }, function (response) {
+             console.log(response);
+             });*/
         };
     }]).directive('fileModel', ['$parse', function ($parse) {
         return {
@@ -136,7 +136,7 @@ $scope.uploadFile = function () {
             link: function (scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
-    
+
                 element.bind('change', function () {
                     scope.$apply(function () {
                         modelSetter(scope, element[0].files[0]);
@@ -144,4 +144,4 @@ $scope.uploadFile = function () {
                 });
             }
         }
-}]);
+    }]);

@@ -4,16 +4,19 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
     function ($scope, $http, $routeParams, $window, sessionService) {
 
         $scope.ob = "producto";
-            $scope.tabla = true;
+        $scope.tabla = true;
         $scope.msgopcioneliminar = true;
-        
+
 //        if (sessionService.getUserName() !== "") {
 //            $scope.loggeduser = sessionService.getUserName();
 //            $scope.loggeduserid = sessionService.getId();
 //            $scope.logged = true;
 //            $scope.tipousuarioID = sessionService.getTypeUserID();
 //        }
-
+        $scope.miFormato = function (valor) {
+            return isNaN(valor) ? valor : parseFloat(valor).toFixed(2);
+        };
+        
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
@@ -32,7 +35,7 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
         });
 
 
-       $scope.eliminar = function (accion) {
+        $scope.eliminar = function (accion) {
             if (accion === "eliminar") {
                 $http({
                     method: 'GET',
@@ -61,7 +64,7 @@ moduleProducto.controller("productoRemoveController", ['$scope', '$http', '$rout
         $scope.volver = function () {
             $window.history.back();
         }
-        
+
     }
 
 ]);

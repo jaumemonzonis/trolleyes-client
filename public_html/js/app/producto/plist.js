@@ -11,7 +11,11 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
 //            $scope.logged = true;
 //            $scope.tipousuarioID = sessionService.getTypeUserID();
 //        }
-
+        $scope.miFormato = function (valor) {
+            return isNaN(valor) ? valor : parseFloat(valor).toFixed(2);
+        };
+        
+        
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -115,7 +119,7 @@ moduleProducto.controller('productoPlistController', ['$scope', '$http', '$locat
             $location.url($scope.ob + `/edit/${id}`);
         }
         $scope.isActive = toolService.isActive;
-        
+
     }
 
 

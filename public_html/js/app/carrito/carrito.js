@@ -8,7 +8,9 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
         $scope.alert = false;
         $scope.factura = false;
 
-
+        $scope.miFormato = function (valor) {
+            return isNaN(valor) ? valor : parseFloat(valor).toFixed(2);
+        };
 
         $http({
             method: 'GET',
@@ -30,13 +32,13 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message;
-                if ( $scope.ajaxData==="Carrito vacio"){
-                    
-                  $scope.alert = true;   
+                if ($scope.ajaxData === "Carrito vacio") {
+
+                    $scope.alert = true;
                 }
-                
-                
-                
+
+
+
             }, function (response) {
                 $scope.status = response.status;
                 $scope.ajaxData = response.data.message || 'Request failed';
@@ -101,7 +103,7 @@ moduleCarrito.controller('carritoCarritoController', ['$scope', '$http', '$locat
                 $scope.status = response.status;
                 $scope.msg_factura = response.data.message;
                 $scope.factura = true;
-                $location.url(`carrito/facturacarrito/`+ $scope.msg_factura);
+                $location.url(`carrito/facturacarrito/` + $scope.msg_factura);
             }, function (response) {
                 $scope.status = response.status;
                 $scope.msg_factura = response.data.message || 'Request failed';

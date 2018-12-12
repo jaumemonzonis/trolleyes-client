@@ -27,17 +27,17 @@
                     </tr>
                     <tr ng-repeat="fila in ajaxDataUsuarios">
                         <td>{{fila.obj_Producto.desc}}</td>
-                        <td>{{fila.obj_Producto.precio}}</td> 
+                        <td>{{miFormato(fila.obj_Producto.precio)}}</td> 
                         <td>{{fila.cantidad}}</td>  
                         <td>{{fila.obj_Factura.iva}}</td>
-                        <td>{{((fila.obj_Factura.iva / 100) * fila.obj_Producto.precio) + fila.obj_Producto.precio}} €</td>
+                        <td>{{miFormato(((fila.obj_Factura.iva / 100) * fila.obj_Producto.precio) + fila.obj_Producto.precio)}} €</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td> 
                         <td style='font-weight: bold;'>TOTAL</td>
-                        <td>{{total}} €</td>
+                        <td>{{miFormato(total)}} €</td>
                     </tr>
                 </table>
                 </div> 

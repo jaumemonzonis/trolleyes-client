@@ -10,7 +10,10 @@ moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeP
 //            $scope.logged = true;
 //            $scope.tipousuarioID = sessionService.getTypeUserID();
 //        }
-
+        $scope.miFormato = function (valor) {
+            return isNaN(valor) ? valor : parseFloat(valor).toFixed(2);
+        };
+        
         if (!$routeParams.id) {
             $scope.id = 1;
         } else {
@@ -33,7 +36,7 @@ moduleProducto.controller("productoViewController", ['$scope', '$http', '$routeP
         $scope.volver = function () {
             $window.history.back();
         };
-       
+
     }
 
 ]);
